@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFO Archive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #050508;
+            min-height: 100vh;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 200;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf, #00d4ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 24px 60px;
+        }
+
+        .item {
+            position: relative;
+            background: #0f0f13;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.04);
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .item:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.6), 0 0 40px rgba(0, 212, 255, 0.08);
+        }
+
+        .item img, .item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .item:hover img, .item:hover video { transform: scale(1.08); }
+
+        .video-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(10px);
+            color: #00d4ff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 1px solid rgba(0,212,255,0.2);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f0f13;
+            z-index: 2;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255,255,255,0.06);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .error {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #0f0f13;
+            color: #444;
+            font-size: 0.8rem;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .lightbox {
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 2, 6, 0.96);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.35s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lb-media-wrap {
+            position: relative;
+            max-width: 92vw;
+            max-height: 84vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.96);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lightbox.active .lb-media-wrap {
+            transform: scale(1);
+        }
+
+        .lightbox img, .lightbox video {
+            max-width: 100%;
+            max-height: 84vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 32px 64px rgba(0,0,0,0.8);
+        }
+
+        .lightbox video { background: #000; }
+
+        .lb-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .lb-close:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.25s;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .lb-nav:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .lb-prev { left: 24px; }
+        .lb-next { right: 24px; }
+
+        .lb-counter {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.25);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px 60px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            margin-top: 40px;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.25);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        footer a {
+            color: rgba(0, 212, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        footer a:hover { color: #00d4ff; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; letter-spacing: 4px; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 16px; }
+            .lb-nav { display: none; }
+            .lb-close { top: 16px; right: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery { grid-template-columns: 1fr; }
+            header { padding: 40px 20px 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>UFO Archive</h1>
+</header>
+
+<div class="gallery" id="gallery"></div>
+
+<div class="lightbox" id="lightbox">
+    <div class="lb-close" onclick="closeLb()">&times;</div>
+    <div class="lb-nav lb-prev" onclick="nav(-1)">&#10094;</div>
+    <div class="lb-nav lb-next" onclick="nav(1)">&#10095;</div>
+    <div class="lb-media-wrap" id="lb-media-wrap"></div>
+    <div class="lb-counter" id="lb-count"></div>
+</div>
+
+<footer>
+    <p>UFO Research / Archive by Atlas</p>
+    <a href="https://github.com/44tl/Archive" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        github.com/44tl/Archive
+    </a>
+</footer>
+
+<script>
+const media = [
+    { type: 'video', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499943843859140779/rhhr0hk.mp4?ex=69f89d4f&is=69f74bcf&hm=2e3632857d76372d9134d001a40995719e7ea71171ba6bb284084ee34920dbff" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499939267995242496/r0frq25.png?ex=69f8990d&is=69f7478d&hm=006a88ed458d553e3287970e84037a4c39f586994e43e43d315dd3a9a7f5d805" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499940146886213834/rt2f2wm.png?ex=69f899de&is=69f7485e&hm=b2fbd2c115b581c6b7f67775b0feeade96eae5f9b294890b216bdb79a41ecb7f" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499941725903388862/bkbwk9x.png?ex=69f89b57&is=69f749d7&hm=09933921d08e57058a5949bae165fd70c45d426af61254def5171b7e6503d0f3" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944902530961579/pjmwvxx.png?ex=69f89e4c&is=69f74ccc&hm=f87ae74f2a6d4d5682d46f79bf1dd95374c9fcfec30423d90136f035c62331f1" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903054983268/qnkm5wv.png?ex=69f89e4c&is=69f74ccc&hm=2f533c0434642a544558ea1cfc27480ae389661656c76ad39fb841889b81f5b8" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903558561832/dn5pnb7.png?ex=69f89e4c&is=69f74ccc&hm=c03cd7b9f5c702cf70135fd5e7bb550b52f82c37b2d0c08b72ab637159a5a096" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944904082587788/n4dx2rk.png?ex=69f89e4c&is=69f74ccc&hm=c37a240c7643ef5a8d3489038ea24ff27d9c60f66aa0d05009b91b8da6e2e6ac" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944904699412551/rhm8m79.png?ex=69f89e4c&is=69f74ccc&hm=34a6e9219b3f5f399e2c7233024ab094b5129000de7fb4efdba34fdb7d2576ec" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944905659650158/6rnhtsp.png?ex=69f89e4d&is=69f74ccd&hm=5d7778f7aef7c3111a49c410f26c5630911aa4d75065f04a6c7e01f508dfeb39" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944906486190170/td8p209.png?ex=69f89e4d&is=69f74ccd&hm=820330f74fb41ebb6bf1c56d5fef503fafdc79c0096a87ec40c7b84ef79b32b5" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944907186376704/5pbmd7k.png?ex=69f89e4d&is=69f74ccd&hm=15a7c3489ddc67236bd175ccfab3a0a7afbac660677a859354ac7d2728c2d5b3" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499945642984865823/sbxhn25.png?ex=69f89efc&is=69f74d7c&hm=df607e7f0997e3d932af1c17853a0834fbd9d07f74b6c6a7222f062c0234e00e" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287354835964044/5kvn2z4.png?ex=69f88bbb&is=69f73a3b&hm=daca3150383c4ca81687067b7b52cdca37947706deb56c5774ee7534138f827a" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355192344636/44tf22w.png?ex=69f88bbb&is=69f73a3b&hm=3d451b897b36de99670618d796a661f5348f61d7c93cd4dad21f88204e50945b" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355536539698/5tnm3q7.png?ex=69f88bbb&is=69f73a3b&hm=6f2dc7727dc142271a118328e6ca6dcf7bbbdf3fe809411afd45f5787f013c6e" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355913764904/j1b56w7.png?ex=69f88bbb&is=69f73a3b&hm=f784260a4627baf53ad3087b94fbc7d94f75bee8d58ac18fe49af29eafce7091" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356249571438/pms3vzn.png?ex=69f88bbb&is=69f73a3b&hm=cce0d12f521327ac029980cdea7386c6af6244ecdeb4e5b34a8f7b43ff9782e1" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356723400905/0r61shv.png?ex=69f88bbb&is=69f73a3b&hm=3e302adcaa4531981f7090199909aab1c13d669ea0f29938d33218cf297a5273" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500461864184844368/827rs0f.png?ex=69f88581&is=69f73401&hm=01db7266652c89d83f164f41aee33249cca76aa8bbe3b68ff4fd169d421eec39" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117127925760/0fhmqbv.png?ex=69f8b095&is=69f75f15&hm=bcd5524be43f0f5ecbca4bb071338940f7d7c4fe89239a5db3212d68d5064bd9" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117387968595/dh48dv0.png?ex=69f8b095&is=69f75f15&hm=c1446cb66f05c806f833547affd92c83a47f068d8b63cdf030139952f8fff892" },
+    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499945031635828868/w26106m.png?ex=69f89e6b&is=69f74ceb&hm=cf1d0391a2fcfcfc9377e2307817c914882ded5cbe0620144dce3400e05d7dc6" }
+];
+
+let current = 0;
+const gallery = document.getElementById('gallery');
+const lb = document.getElementById('lightbox');
+const lbWrap = document.getElementById('lb-media-wrap');
+const lbCount = document.getElementById('lb-count');
+
+function reveal(el, loading) {
+    loading.style.display = 'none';
+    el.style.display = 'block';
+}
+
+function createItem(item, index) {
+    const el = document.createElement('div');
+    el.className = 'item';
+
+    const loading = document.createElement('div');
+    loading.className = 'loading';
+    loading.innerHTML = '<div class="spinner"></div>';
+    el.appendChild(loading);
+
+    if (item.type === 'video') {
+        const badge = document.createElement('div');
+        badge.className = 'video-badge';
+        badge.textContent = 'MP4';
+        el.appendChild(badge);
+
+        const video = document.createElement('video');
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+
+        video.onloadeddata = () => reveal(video, loading);
+        video.onerror = () => showError(el, loading);
+
+        video.src = item.url;
+        el.appendChild(video);
+    } else {
+        const img = document.createElement('img');
+        img.alt = '';
+
+        img.onload = () => reveal(img, loading);
+        img.onerror = () => showError(el, loading);
+
+        img.src = item.url;
+
+        if (img.complete && img.naturalWidth > 0) {
+            reveal(img, loading);
+        }
+
+        el.appendChild(img);
+    }
+
+    el.onclick = () => openLb(index);
+    return el;
+}
+
+function showError(el, loading) {
+    loading.style.display = 'none';
+    const err = document.createElement('div');
+    err.className = 'error';
+    err.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Failed to load';
+    el.appendChild(err);
+}
+
+media.forEach((item, i) => gallery.appendChild(createItem(item, i)));
+
+function openLb(index) {
+    current = index;
+    renderLb();
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderLb() {
+    lbWrap.innerHTML = '';
+    const item = media[current];
+
+    if (item.type === 'video') {
+        const video = document.createElement('video');
+        video.src = item.url;
+        video.controls = true;
+        video.autoplay = true;
+        lbWrap.appendChild(video);
+    } else {
+        const img = document.createElement('img');
+        img.src = item.url;
+        lbWrap.appendChild(img);
+    }
+
+    lbCount.textContent = `${current + 1} / ${media.length}`;
+}
+
+function closeLb() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+    const v = lbWrap.querySelector('video');
+    if (v) v.pause();
+}
+
+function nav(dir) {
+    current += dir;
+    if (current < 0) current = media.length - 1;
+    if (current >= media.length) current = 0;
+    renderLb();
+}
+
+document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') nav(-1);
+    if (e.key === 'ArrowRight') nav(1);
+});
+
+lb.addEventListener('click', e => {
+    if (e.target === lb) closeLb();
+});
+</script>
+
+</body>
+</html>
