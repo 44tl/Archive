@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive & Research</title>
-    <link rel="preconnect" href="https://cdn.discordapp.com">
+    <title>44tl's Archive & Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300;400;700&family=Inter:wght@100;200;400;700&family=Courier+Prime&family=Space+Mono&family=Fira+Code&family=Source+Code+Pro&family=IBM+Plex+Mono&family=Roboto+Mono&family=Syne+Mono&family=Creepster&family=Press+Start+2P&family=VT323&family=Silkscreen&family=Chakra+Petch&family=Orbitron&family=Share+Tech+Mono&family=Major+Mono+Display&family=Recursive:wght@300..900&family=Azeret+Mono&family=Bungee+Shade&family=Bungee+Outline&family=Monoton&family=Rubik+Glitch&family=Press+Start+2P&family=Faster+One&family=Bowlby+One+SC&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Ewert&family=Butcherman&family=New+Rocker&family=Pirata+One&family=Rye&family=Metal+Mania&family=Shojumaru&family=Cinzel+Decorative&family=Fruktur&family=Diplomata+SC&family=Unlock&family=Wallpoet&family=Electromechanica&family=Geo&family=Dela+Gothic+One&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #050508;
+            --surface: #0a0a0f;
+            --surface-hover: #12121a;
+            --accent: #00f2ff;
+            --accent-dim: rgba(0, 242, 255, 0.2);
+            --secondary: #9d4edd;
+            --warning: #ff003c;
+            --text: #c0c0d0;
+            --text-dim: #606070;
+            --text-bright: #ffffff;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', sans-serif;
+            --border: rgba(255, 255, 255, 0.05);
+            --glow: 0 0 20px rgba(0, 242, 255, 0.15);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #050508;
+            font-family: var(--font-sans);
+            background: var(--bg);
             min-height: 100vh;
-            color: #e0e0e0;
+            color: var(--text);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         #bg {
@@ -21,137 +42,292 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.9;
-        }
-
-        header, .gallery, footer, .research-page, .research-nav {
-            position: relative;
-            z-index: 1;
+            opacity: 0.6;
         }
 
         header {
-            text-align: center;
-            padding: clamp(40px, 8vw, 60px) 20px clamp(30px, 5vw, 40px);
+            position: relative;
+            z-index: 10;
+            padding: 80px 40px 40px;
+            text-align: left;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-meta {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         h1 {
-            font-size: clamp(1.8rem, 5vw, 3.2rem);
-            font-weight: 200;
-            letter-spacing: clamp(4px, 1vw, 8px);
+            font-family: var(--font-sans);
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 100;
+            letter-spacing: -2px;
+            color: var(--text-bright);
+            margin-bottom: 20px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #00d4ff, #7b2cbf, #00d4ff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 5s linear infinite;
+            text-align: center;
         }
 
-        @keyframes shine { to { background-position: 200% center; } }
+        .research-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            background: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 20px;
+        }
+
+        .research-nav button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 12px 20px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .research-nav button:hover {
+            color: var(--text-bright);
+            border-color: var(--text-dim);
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        .research-nav button.active {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(0, 242, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 25px;
+            background: var(--border);
+            margin: 0 15px;
+        }
+
+        .page-content {
+            display: none;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 100px;
+            pointer-events: auto;
+        }
+
+        .page-content.active {
+            display: block;
+            animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-            gap: clamp(16px, 2vw, 24px);
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 20px clamp(16px, 3vw, 24px) 60px;
+            pointer-events: auto;
         }
 
         .item {
             position: relative;
-            background: #0f0f13;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.04);
-            aspect-ratio: 4/3;
+            background: var(--surface);
+            aspect-ratio: 1/1;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            contain: paint;
-        }
-
-        .item:hover {
-            transform: translateY(-6px);
-            border-color: rgba(0, 212, 255, 0.15);
-            box-shadow: 0 24px 48px rgba(0,0,0,0.6), 0 0 40px rgba(0, 212, 255, 0.08);
+            overflow: hidden;
+            transition: all 0.5s ease;
+            z-index: 10;
+            pointer-events: auto !important;
         }
 
         .item img, .item video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .item:hover img, .item:hover video { transform: scale(1.08); }
-
-        .video-badge {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(10px);
-            color: #00d4ff;
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            border: 1px solid rgba(0,212,255,0.2);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
             pointer-events: none;
-            z-index: 3;
+            display: block;
         }
 
-        .loading {
+        .item:hover {
+            border-color: var(--accent);
+        }
+
+        .item:hover img, .item:hover video {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .item-overlay {
             position: absolute;
             inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #0f0f13;
-            z-index: 2;
-        }
-
-        .spinner {
-            width: 32px;
-            height: 32px;
-            border: 2px solid rgba(255,255,255,0.06);
-            border-top-color: #00d4ff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .error {
-            position: absolute;
-            inset: 0;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #0f0f13;
-            color: #444;
-            font-size: 0.8rem;
-            gap: 8px;
-            z-index: 2;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.8) 100%);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            z-index: 5;
         }
 
+        .item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-id {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-dim);
+        }
+
+        .item-info {
+            font-family: var(--font-mono);
+        }
+
+        .item-class {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .item-status {
+            font-size: 0.8rem;
+            color: var(--text-bright);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item-status::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* Research Specific Styles */
+        .research-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 40px;
+        }
+
+        .dossier {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 60px;
+            position: relative;
+        }
+
+        
+
+        .research-page h2 {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 100;
+            color: var(--text-bright);
+            margin-bottom: 40px;
+            line-height: 1.1;
+        }
+
+        .research-page h3 {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin: 40px 0 20px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--accent-dim);
+            padding-bottom: 8px;
+        }
+
+        .research-page p {
+            margin-bottom: 24px;
+            color: var(--text);
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .research-page table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .research-page th {
+            text-align: left;
+            padding: 12px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent-dim);
+            background: rgba(0, 242, 255, 0.03);
+        }
+
+        .research-page td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .research-page tr:hover td {
+            color: var(--text-bright);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .math {
+            font-family: var(--font-mono);
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        /* Lightbox */
         .lightbox {
             display: flex;
             opacity: 0;
             pointer-events: none;
             position: fixed;
             inset: 0;
-            background: rgba(2, 2, 6, 0.96);
-            backdrop-filter: blur(20px);
+            background: rgba(2, 2, 6, 0.98);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            transition: opacity 0.35s ease;
+            transition: opacity 0.4s ease;
         }
 
         .lightbox.active {
@@ -159,412 +335,197 @@
             pointer-events: all;
         }
 
-        .lb-media-wrap {
-            position: relative;
-            max-width: 92vw;
-            max-height: 84vh;
+        .lb-content {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transform: scale(0.96);
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 30px;
+            max-width: 95vw;
+            max-height: 90vh;
+        }
+
+        .lb-media-wrap {
+            transform: scale(0.95);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .lightbox.active .lb-media-wrap {
             transform: scale(1);
         }
 
-        .lightbox img, .lightbox video {
-            max-width: 100%;
-            max-height: 84vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.8);
+        .lb-media-wrap img, .lb-media-wrap video {
+            max-width: 70vw;
+            max-height: 85vh;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
         }
 
-        .lightbox video { background: #000; }
-
-        .lb-close {
-            position: absolute;
-            top: 24px;
-            right: 32px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: rgba(255,255,255,0.5);
-            cursor: pointer;
-            border-radius: 50%;
-            transition: all 0.2s;
-            z-index: 10;
+        .lb-media-wrap img.zoomed {
+            cursor: zoom-out;
+            transform: scale(2);
         }
 
-        .lb-close:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.08);
+        .lb-info {
+            font-family: var(--font-mono);
+            color: var(--text);
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        .lb-info h3 {
+            color: var(--accent);
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        .lb-info p {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 8px;
         }
 
         .lb-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 52px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: rgba(255,255,255,0.4);
+            background: transparent;
+            border: 1px solid var(--text-dim);
+            color: var(--text);
+            font-size: 3rem;
+            padding: 10px 20px;
             cursor: pointer;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.25s;
-            user-select: none;
             z-index: 10;
+            transition: all 0.3s;
+            font-family: var(--font-mono);
         }
+
+        .lb-prev { left: 20px; }
+
+        .lb-next { right: 20px; }
 
         .lb-nav:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.12);
-        }
-
-        .lb-prev { left: 24px; }
-        .lb-next { right: 24px; }
-
-        .lb-counter {
-            position: absolute;
-            bottom: 28px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.25);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            font-weight: 500;
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         footer {
+            padding: 100px 40px;
             text-align: center;
-            padding: 50px 20px 60px;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            margin-top: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border);
+            font-family: var(--font-mono);
         }
 
-        footer p {
-            color: rgba(255,255,255,0.25);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
-
-        footer a {
-            color: rgba(0, 212, 255, 0.6);
-            text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            transition: color 0.2s;
-            display: inline-flex;
+        .footer-center {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 15px;
         }
 
-        footer a:hover { color: #00d4ff; }
+        .github-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .github-link:hover {
+            color: var(--text-bright);
+        }
+
+        .github-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-center p {
+            color: var(--text-dim);
+            font-size: 0.75rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--accent);
+            font-size: 0.75rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover { color: var(--text-bright); }
 
         @media (max-width: 768px) {
-            .gallery { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; }
-            .lb-nav { display: none; }
-            .lb-close { top: 16px; right: 16px; }
+            header { padding: 40px 15px 20px; }
+            h1 { font-size: 2rem !important; text-align: center; }
+            .gallery { grid-template-columns: 1fr; gap: 10px; }
+            .dossier { padding: 20px; }
+            .research-nav { 
+                flex-wrap: wrap; 
+                padding: 10px;
+                gap: 5px;
+            }
+            .research-nav button {
+                font-size: 0.7rem;
+                padding: 8px 12px;
+            }
+            .page-content { padding: 10px; }
+            .lightbox { padding: 20px; }
+            .lb-content { flex-direction: column; }
+            .lb-media-wrap img, .lb-media-wrap video { max-width: 100vw; max-height: 60vh; }
+            .lb-info { min-width: auto; max-width: 100%; text-align: center; margin-top: 15px; }
+            .lb-nav { font-size: 2rem; padding: 10px 15px; }
+            .lb-prev { left: 5px; }
+            .lb-next { right: 5px; }
+            footer { padding: 40px 20px; }
+            .research-page h2 { font-size: 1.5rem; }
+            .research-page h3 { font-size: 1.1rem; }
+            .research-page p { font-size: 0.9rem; }
+            .research-page table { font-size: 0.75rem; }
+            .research-page pre { font-size: 0.65rem; overflow-x: auto; }
+            .math { font-size: 0.8rem; overflow-x: auto; }
         }
 
         @media (max-width: 480px) {
-            .gallery { grid-template-columns: 1fr; }
-            header { padding: 40px 20px 30px; }
+            header { padding: 30px 10px 15px; }
+            h1 { font-size: 1.5rem !important; }
+            .gallery { gap: 8px; }
+            .dossier { padding: 15px; }
+            .research-nav button { font-size: 0.6rem; padding: 6px 8px; }
+            .lb-nav { font-size: 1.5rem; }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            #bg { display: none; }
+        @media (min-width: 1200px) {
+            .gallery { grid-template-columns: repeat(4, 1fr); }
         }
 
-        .research-page {
-            display: none;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px clamp(20px, 4vw, 40px) 80px;
-            animation: fadeIn 0.5s ease;
+        @media (min-width: 1600px) {
+            .gallery { grid-template-columns: repeat(5, 1fr); }
         }
 
-        .research-page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .research-page h2 {
-            font-size: clamp(1.6rem, 4vw, 2.4rem);
-            font-weight: 300;
-            color: #00d4ff;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            line-height: 1.3;
-        }
-
-        .research-page h3 {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            font-weight: 400;
-            color: #7b2cbf;
-            margin-top: 36px;
-            margin-bottom: 14px;
-            letter-spacing: 0.5px;
-            line-height: 1.4;
-        }
-
-        .research-page h4 {
-            font-size: clamp(1rem, 2vw, 1.15rem);
-            font-weight: 500;
-            color: #a0a0b0;
-            margin-top: 24px;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .research-page p {
-            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
-            line-height: 1.75;
-            color: #c0c0d0;
-            margin-bottom: 16px;
-            text-align: justify;
-            hyphens: auto;
-        }
-
-        .research-page table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 24px 0;
-            font-size: clamp(0.85rem, 1.5vw, 0.95rem);
-            overflow-x: auto;
-            display: block;
-        }
-
-        .research-page table thead {
-            background: rgba(0, 212, 255, 0.08);
-        }
-
-        .research-page table th {
-            color: #00d4ff;
-            font-weight: 500;
-            text-align: left;
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
-            white-space: nowrap;
-        }
-
-        .research-page table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            color: #b0b0c0;
-            line-height: 1.5;
-            vertical-align: top;
-        }
-
-        .research-page table tbody tr:hover {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .research-page code {
-            background: rgba(0, 212, 255, 0.08);
-            color: #00d4ff;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'SF Mono', Monaco, monospace;
-            font-size: 0.9em;
-        }
-
-        .research-page pre {
-            background: #0a0a12;
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 20px;
-            overflow-x: auto;
-            margin: 20px 0;
-            font-family: 'SF Mono', Monaco, monospace;
-            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-            line-height: 1.6;
-            color: #a0a0b0;
-        }
-
-        .research-page blockquote {
-            border-left: 3px solid #7b2cbf;
-            padding-left: 20px;
-            margin: 20px 0;
-            color: #a0a0b0;
-            font-style: italic;
-            line-height: 1.7;
-        }
-
-        .research-page ul, .research-page ol {
-            margin: 16px 0 16px 24px;
-            color: #c0c0d0;
-            line-height: 1.8;
-        }
-
-        .research-page li {
-            margin-bottom: 8px;
-        }
-
-        .research-page strong {
-            color: #e0e0f0;
-            font-weight: 500;
-        }
-
-        .research-page em {
-            color: #b0b0d0;
-        }
-
-        .research-page hr {
-            border: none;
-            height: 1px;
-            background: rgba(255,255,255,0.06);
-            margin: 40px 0;
-        }
-
-        .research-page .math {
-            overflow-x: auto;
-            padding: 12px 0;
-        }
-
-        .research-nav {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 1400px;
-            margin: 0 auto 34px;
-            padding: 14px 24px 20px;
-            background: linear-gradient(180deg, rgba(5,5,8,0.96), rgba(5,5,8,0.72), rgba(5,5,8,0));
-            backdrop-filter: blur(12px);
-        }
-
-        .research-nav button {
-            background: rgba(0, 212, 255, 0.06);
-            border: 1px solid rgba(0, 212, 255, 0.12);
-            color: #00d4ff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.25s;
-            font-family: inherit;
-        }
-
-        .research-nav button:hover, .research-nav button.active {
-            background: rgba(0, 212, 255, 0.15);
-            border-color: rgba(0, 212, 255, 0.3);
-            color: #fff;
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.5);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.25s;
-            font-family: inherit;
-            margin-bottom: 32px;
-        }
-
-        .back-btn:hover {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-            border-color: rgba(255,255,255,0.15);
-        }
-
-        .page-content {
-            display: none;
-        }
-
-        .page-content.active {
-            display: block;
-        }
-
-        .toc {
-            background: rgba(0, 212, 255, 0.03);
-            border: 1px solid rgba(0, 212, 255, 0.08);
-            border-radius: 12px;
-            padding: 24px;
-            margin: 24px 0 32px;
-        }
-
-        .toc h4 {
-            color: #00d4ff;
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .toc ul {
-            margin: 0;
-            list-style: none;
-        }
-
-        .toc li {
-            margin-bottom: 6px;
-        }
-
-        .toc a {
-            color: rgba(255,255,255,0.4);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-            display: block;
-            padding: 4px 0;
-        }
-
-        .toc a:hover {
-            color: #00d4ff;
-        }
-
-        @media (max-width: 640px) {
-            .research-page table {
-                font-size: 0.75rem;
-            }
-            .research-page table th, .research-page table td {
-                padding: 8px 10px;
-            }
-        }
-    </style>
+        </style>
 </head>
 <body>
 
 <canvas id="bg"></canvas>
 
 <header>
-    <h1>Archive & Research</h1>
+    <h1 id="title">44tl's Archive & Research</h1>
 </header>
 
 <nav class="research-nav" id="research-nav"></nav>
@@ -574,530 +535,455 @@
 </div>
 
 <div class="page-content" id="research-page">
-    <div id="research-container"></div>
+    <div class="research-container" id="research-container"></div>
 </div>
 
-<div class="lightbox" id="lightbox">
-    <div class="lb-close" onclick="closeLb()">&times;</div>
-    <div class="lb-nav lb-prev" onclick="nav(-1)">&#10094;</div>
-    <div class="lb-nav lb-next" onclick="nav(1)">&#10095;</div>
-    <div class="lb-media-wrap" id="lb-media-wrap"></div>
-    <div class="lb-counter" id="lb-count"></div>
+<div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLb()">
+    <button class="lb-nav lb-prev" onclick="navigateLb(-1)">&#8249;</button>
+    <div class="lb-content" onclick="event.stopPropagation()">
+        <div class="lb-media-wrap" id="lb-media-wrap"></div>
+        <div class="lb-info" id="lb-info"></div>
+    </div>
+    <button class="lb-nav lb-next" onclick="navigateLb(1)">&#8250;</button>
 </div>
 
 <footer>
-    <p>Archive & Research by Atlas</p>
-    <a href="https://github.com/44tl/Archive" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        github.com/44tl/Archive
-    </a>
+    <div class="footer-center">
+        <a href="https://github.com/44tl/Archive" target="_blank" class="github-link">
+            <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            Github
+        </a>
+        <p>© 2026 44tl All rights reserved</p>
+    </div>
 </footer>
 
 <script>
+const CDN_BASE = '';
 const media = [
-    { type: 'video', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499943843859140779/rhhr0hk.mp4?ex=69f89d4f&is=69f74bcf&hm=2e3632857d76372d9134d001a40995719e7ea71171ba6bb284084ee34920dbff" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499939267995242496/r0frq25.png?ex=69f8990d&is=69f7478d&hm=006a88ed458d553e3287970e84037a4c39f586994e43e43d315dd3a9a7f5d805" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499940146886213834/rt2f2wm.png?ex=69f899de&is=69f7485e&hm=b2fbd2c115b581c6b7f67775b0feeade96eae5f9b294890b216bdb79a41ecb7f" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499941725903388862/bkbwk9x.png?ex=69f89b57&is=69f749d7&hm=09933921d08e57058a5949bae165fd70c45d426af61254def5171b7e6503d0f3" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944902530961579/pjmwvxx.png?ex=69f89e4c&is=69f74ccc&hm=f87ae74f2a6d4d5682d46f79bf1dd95374c9fcfec30423d90136f035c62331f1" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903054983268/qnkm5wv.png?ex=69f89e4c&is=69f74ccc&hm=2f533c0434642a544558ea1cfc27480ae389661656c76ad39fb841889b81f5b8" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903558561832/dn5pnb7.png?ex=69f89e4c&is=69f74ccc&hm=c03cd7b9f5c702cf70135fd5e7bb550b52f82c37b2d0c08b72ab637159a5a096" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944904082587788/n4dx2rk.png?ex=69f89e4c&is=69f74ccc&hm=c37a240c7643ef5a8d3489038ea24ff27d9c60f66aa0d05009b91b8da6e2e6ac" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944904699412551/rhm8m79.png?ex=69f89e4c&is=69f74ccc&hm=34a6e9219b3f5f399e2c7233024ab094b5129000de7fb4efdba34fdb7d2576ec" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944905659650158/6rnhtsp.png?ex=69f89e4d&is=69f74ccd&hm=5d7778f7aef7c3111a49c410f26c5630911aa4d75065f04a6c7e01f508dfeb39" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944906486190170/td8p209.png?ex=69f89e4d&is=69f74ccd&hm=820330f74fb41ebb6bf1c56d5fef503fafdc79c0096a87ec40c7b84ef79b32b5" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944907186376704/5pbmd7k.png?ex=69f89e4d&is=69f74ccd&hm=15a7c3489ddc67236bd175ccfab3a0a7afbac660677a859354ac7d2728c2d5b3" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499945642984865823/sbxhn25.png?ex=69f89efc&is=69f74d7c&hm=df607e7f0997e3d932af1c17853a0834fbd9d07f74b6c6a7222f062c0234e00e" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287354835964044/5kvn2z4.png?ex=69f88bbb&is=69f73a3b&hm=daca3150383c4ca81687067b7b52cdca37947706deb56c5774ee7534138f827a" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355192344636/44tf22w.png?ex=69f88bbb&is=69f73a3b&hm=3d451b897b36de99670618d796a661f5348f61d7c93cd4dad21f88204e50945b" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355536539698/5tnm3q7.png?ex=69f88bbb&is=69f73a3b&hm=6f2dc7727dc142271a118328e6ca6dcf7bbbdf3fe809411afd45f5787f013c6e" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355913764904/j1b56w7.png?ex=69f88bbb&is=69f73a3b&hm=f784260a4627baf53ad3087b94fbc7d94f75bee8d58ac18fe49af29eafce7091" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356249571438/pms3vzn.png?ex=69f88bbb&is=69f73a3b&hm=cce0d12f521327ac029980cdea7386c6af6244ecdeb4e5b34a8f7b43ff9782e1" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356723400905/0r61shv.png?ex=69f88bbb&is=69f73a3b&hm=3e302adcaa4531981f7090199909aab1c13d669ea0f29938d33218cf297a5273" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500461864184844368/827rs0f.png?ex=69f88581&is=69f73401&hm=01db7266652c89d83f164f41aee33249cca76aa8bbe3b68ff4fd169d421eec39" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117127925760/0fhmqbv.png?ex=69f8b095&is=69f75f15&hm=bcd5524be43f0f5ecbca4bb071338940f7d7c4fe89239a5db3212d68d5064bd9" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117387968595/dh48dv0.png?ex=69f8b095&is=69f75f15&hm=c1446cb66f05c806f833547affd92c83a47f068d8b63cdf030139952f8fff892" },
-    { type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499945031635828868/w26106m.png?ex=69f89e6b&is=69f74ceb&hm=cf1d0391a2fcfcfc9377e2307817c914882ded5cbe0620144dce3400e05d7dc6" }
+    { id: 'MED-001', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499939267995242496/r0frq25.png?ex=69f9ea8d&is=69f8990d&hm=c44475f111185e68c9a33adad02a9f6a4c28f77f5a6c31f96a47da43a326380c&" },
+    { id: 'MED-002', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499940146886213834/rt2f2wm.png?ex=69f9eb5e&is=69f899de&hm=d50dd68d02f3ea61691ad0a1b88c11db3126c8ebe1906530abe5360afc70ec3b&" },
+    { id: 'MED-003', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499941725903388862/bkbwk9x.png?ex=69f9ecd7&is=69f89b57&hm=9530dbc5693c7b2025ab02c56f64790417ac058d5282ffdbf9f221ddfe86553b&" },
+    { id: 'MED-004', type: 'video', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499943843859140779/rhhr0hk.mp4?ex=69f9eecf&is=69f89d4f&hm=00db0935df5601105d575cd7b9c19b91d12f3e102a3d61b165753f2786119f2e&" },
+    { id: 'MED-005', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944902530961579/pjmwvxx.png?ex=69f9efcc&is=69f89e4c&hm=bda5ba37a6871ca49242c2047bec2b8f1756d3760c4c91784834223e5686495a&" },
+    { id: 'MED-006', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903054983268/qnkm5wv.png?ex=69f9efcc&is=69f89e4c&hm=cbd25aad08750450b7f4b453e705836e90421d97a2d88c4e904aa68434e03402&" },
+    { id: 'MED-007', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944904082587788/n4dx2rk.png?ex=69f9efcc&is=69f89e4c&hm=6c5c75220149c38f743f318442d082e5bc6963f5c68f08a775a8114c4da2d4fc&" },
+    { id: 'MED-008', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903558561832/dn5pnb7.png?ex=69f9efcc&is=69f89e4c&hm=2c0407b7a34771291235a49b95ed0a5e52c1dbe6d8592a959fb900cdc4569748&" },
+    { id: 'MED-009', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944906486190170/td8p209.png?ex=69f9efcd&is=69f89e4d&hm=804ba2977eb5174070311833cd4b47987e34b2e1e0c95c0afd7d1e5fc93d9aa6&" },
+    { id: 'MED-010', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499945642984865823/sbxhn25.png?ex=69f9f07c&is=69f89efc&hm=ff23a7f85193ca0cf39c439cc8e178afb9892aed9be063300db4083fcedc9bb9&" },
+    { id: 'MED-011', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287354835964044/5kvn2z4.png?ex=69f9347b&is=69f7e2fb&hm=89f7e02f56870e6655eef0710c477a5aa1c8e68f6528c91c1502ca00959ea0fd&" },
+    { id: 'MED-012', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355192344636/44tf22w.png?ex=69f9347b&is=69f7e2fb&hm=c2aec3c5a2ca28daa582a9ea679ea751f6751ac523b79fd1a1f8ada289ccdbbf&" },
+    { id: 'MED-013', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355536539698/5tnm3q7.png?ex=69f9347b&is=69f7e2fb&hm=8b1b9165b5ab5147d6be13386aa739277896cbd56c65b9fe9ae5dec16a4c1a07&" },
+    { id: 'MED-014', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355913764904/j1b56w7.png?ex=69f9347b&is=69f7e2fb&hm=c689a7ab724c1a40b71e3e8d89be2eaad70a3197b66a88c6329c7a66da37fd5a&" },
+    { id: 'MED-015', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356249571438/pms3vzn.png?ex=69f9347b&is=69f7e2fb&hm=0467564d0db10433a64bcac4ae0d6311800d9c03a40258849e1b527e46f70ce4&" },
+    { id: 'MED-016', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356723400905/0r61shv.png?ex=69f9347b&is=69f7e2fb&hm=76590fb3c0263fad634e952c448a73d745410034036fca26cba88e1855662064&" },
+    { id: 'MED-017', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500461864184844368/827rs0f.png?ex=69f92e41&is=69f7dcc1&hm=43daf136674f96c3ed4a74067de793357faf752efb73c101861cc65ce84931b2&" },
+    { id: 'MED-018', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500461863916277800/xb2j4sq.png?ex=69f92e41&is=69f7dcc1&hm=2d210969c7ec34e2fa11b27b1d41d1637dde55e98d22303bbdd0d2317bc27bcc&" },
+    { id: 'MED-019', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117127925760/0fhmqbv.png?ex=69f95955&is=69f807d5&hm=d5061df75a31c8c88f823b96c60b7b85b488d87857725556b3a0bd9dafb8b804&" },
+    { id: 'MED-020', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117387968595/dh48dv0.png?ex=69f95955&is=69f807d5&hm=77a7d55c6b680db49184224aafc89ff8f8b2abcda9a2e415792949c98333fdd8&" },
+    { id: 'MED-021', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811179990454332/84p9x43.png?ex=69f9cad5&is=69f87955&hm=c0e542d8a73ba030e0645616d3ddf3d81f081903c82129218da8adc50285e515&" },
+    { id: 'MED-022', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811180287987712/3xn1fdf.png?ex=69f9cad5&is=69f87955&hm=1ae39fa84b28a6eb03d291366acde61149a13685b4d65038be16683835384199&" },
+    { id: 'MED-023', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811180556550164/jwndv12.png?ex=69f9cad5&is=69f87955&hm=e122e05373a12960d11cecbd3403b7d3050ae0b8490253df68a3c6a86dd7dfa5&" },
+    { id: 'MED-024', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811180841631794/v7mkhm7.png?ex=69f9cad5&is=69f87955&hm=be26d2329f086691430e96757403e78ce72d5a914c011b7df5482584641bebcc&" },
+    { id: 'MED-025', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811181126848632/jn02m1n.png?ex=69f9cad5&is=69f87955&hm=e093bde5bbd50d5effbb91d1005985aa7e9fb1fe9eb0bbc05ba438c2d8f67ef6&" }
 ];
 
-let current = 0;
+const researchDocs = [
+    {
+        id: 'transmedium',
+        title: 'Technical Assessment: Transmedium UAP',
+        content: `<h2>Technical Assessment of Transmedium Unidentified Anomalous Phenomena</h2>
+        <p>The strategic landscape of national security is currently undergoing a fundamental reorientation driven by the recognition of Unidentified Anomalous Phenomena (UAP) that exhibit capabilities transcending traditional domain boundaries. Historically, the military and intelligence communities have categorized unidentified objects according to the medium in which they were detected principally as aerial or maritime anomalies. However, contemporary sensor data and multi-witness accounts have revealed a class of objects capable of seamless transmedium travel, specifically transitioning between the atmosphere and the hydrosphere without the catastrophic structural failure or massive kinetic energy dissipation typically associated with such maneuvers.</p>
+        <h2>Foundational Framework and Taxonomic Definitions</h2>
+        <p>The shift in nomenclature from Unidentified Flying Objects (UFOs) to Unidentified Anomalous Phenomena (UAP) is more than a linguistic rebranding; it represents a comprehensive expansion of the investigatory scope. As codified in the National Defense Authorization Act (NDAA) for Fiscal Year 2023, UAPs are defined as airborne objects that are not immediately identifiable, transmedium objects or devices, and submerged objects that display performance characteristics suggesting they may be related to the former categories. The term "transmedium" specifically refers to the ability of an object to cross domains, such as moving from outer space into the atmosphere or from the atmosphere into the ocean.</p>
+        <p>Within the maritime context, these phenomena are frequently referred to as Unidentified Submerged Objects (USOs) or "fast movers". The Department of Defense (DoD) considers these as sources of anomalous detections that demonstrate behaviors not readily understood by current sensors or observers, particularly when those behaviors exceed known performance envelopes in terms of velocity, maneuverability, or material resilience. The official recognition of these objects as "all-domain" threats has necessitated the creation of the All-domain Anomaly Resolution Office (AARO), which is tasked with synchronizing domain awareness across the skies, sea, and space.</p>
+        <h2>Forensic Analysis of High-Fidelity Transmedium Cases</h2>
+        <p>The reality of transmedium travel is supported by a series of high-fidelity cases where advanced sensor suites have captured objects interacting with the water surface. These cases serve as the primary empirical basis for analyzing the physics of domain transition.</p>
+        <h3>The 2013 Aguadilla Infrared Analysis</h3>
+        <p>On April 25, 2013, an infrared (IR) sensor onboard a U.S. Customs and Border Protection (CBP) DHC-8 aircraft tracked an unidentified object over Rafael Hernandez Airport in Aguadilla, Puerto Rico. The resulting thermal video, which spans approximately three minutes, provides a detailed record of an object exhibiting flight characteristics that challenge conventional aviation standards. The Scientific Coalition for UAP Studies (SCU) conducted a 165-page forensic investigation into the footage, which was captured by a Wescam MX-15D IR camera operating in the 3-5 micron wavelength.</p>
+        <p>The object was observed traveling at speeds approaching 100 mph at extremely low altitudes, sometimes below tree-top level, without navigation lights or discernible propulsion surfaces. Most significantly, the object was filmed entering the Atlantic Ocean with "minimal impact," maintaining its trajectory without the large-scale splash or deceleration that would be expected of a solid object hitting the water at high speed. After a period of submersion, the object appeared to exit the water and enlarge, subsequently splitting into two equal parts, both of which then re-entered the water at different times.</p>
+        <p>The SCU's analysis utilized FAA radar data to independently validate the object's velocity and trajectory, which corroborated the video metadata. Despite claims from skeptics that the object might be a balloon or a Chinese lantern, the SCU's investigation ruled out these possibilities based on the object's speed relative to local wind conditions (minimum 16 mph wind would be required for a lantern to match the track, which exceeds the stability threshold for such objects) and its observed disappearance into the water.</p>
+        <p>However, the All-domain Anomaly Resolution Office (AARO) provided a contradictory resolution in 2024. AARO's analysis suggests that the object was likely a commercial aircraft or a similar prosaic object, and that the apparent water entry was a sensor artifact known as thermal saturation or washout. According to AARO, when the temperature of the object and the water became indistinguishable to the IR sensor, the object appeared to submerge, whereas it was actually flying over the airport the entire time. This discrepancy highlights the critical role of sensor calibration and the potential for optical illusions (parallax) in UAP data.</p>
+        <h3>The USS Omaha and San Diego Swarms</h3>
+        <p>In July 2019, the USS Omaha recorded a spherical object hovering off the coast of San Diego before it "eased down" into the water. This incident was part of a larger series of encounters involving multiple warships, including the USS Russell and USS Bunker Hill, which detected "swarms" of objects ranging from 14 to over 100 units conducting coordinated maneuvers at speeds near 160 mph. These objects displayed the ability to maintain hovering positions over moving Navy vessels for prolonged periods, far exceeding the flight endurance of commercial quadcopters such as the DJI Phantom IV.</p>
+        <p>The USS Omaha video, verified by the Pentagon, shows a seamless transition into the ocean without debris or a visible splash, which observers characterized as a demonstration of "transmedium capability". When objects enter water at high velocities, the density difference (water being approximately 800 times denser than air) typically results in an immense kinetic shock. The absence of this shock in the Omaha footage suggests the existence of a boundary-layer manipulation technology that mitigates the impact of fluid density.</p>
+        <table>
+            <tr><th>Case Identifier</th><th>Date</th><th>Primary Sensor</th><th>Key Transmedium Observable</th><th>Official Assessment</th></tr>
+            <tr><td>Aguadilla, PR</td><td>April 2013</td><td>Wescam MX-15D (IR)</td><td>Minimal impact water entry; splitting</td><td>Resolved as likely sensor artifact (AARO)</td></tr>
+            <tr><td>USS Omaha</td><td>July 2019</td><td>FLIR / Radar</td><td>Controlled descent into water; no splash</td><td>Verified as UAP; investigation ongoing</td></tr>
+            <tr><td>USS Nimitz</td><td>Nov 2004</td><td>Pilot Visual / Radar</td><td>"Tic Tac" hovering over churning water</td><td>Verified as UAP; anomalous performance</td></tr>
+            <tr><td>South Asia MQ-9</td><td>2023</td><td>MQ-9 IR Sensor</td><td>Apparent atmospheric cavitation wake</td><td>Resolved as sensor software artifact</td></tr>
+        </table>
+        <h3>Historical and Global Precedents</h3>
+        <p>The documentation of transmedium UAPs extends back decades, with the 1967 Shag Harbour incident serving as a cornerstone of Canadian UAP history. Multiple witnesses, including Royal Canadian Mounted Police (RCMP) officers, observed a 60-foot object with orange lights dive at a 45-degree angle into the waters of Nova Scotia. Unlike modern cases where the objects leave no trace, the Shag Harbour object left a thick, yellowish, bubbling foam on the water's surface. Royal Canadian Navy divers conducted an extensive search of the harbour floor but found no wreckage, leading to later reports that the object had traveled underwater for 25 miles to a submarine detection base at Government Point.</p>
+        <p>Another historically significant event occurred during the 1952 NATO Exercise "Mainbrace," where multiple sightings of triangular and disk-shaped objects were reported by British and Danish military personnel over the North Sea. A Danish lieutenant aboard the destroyer Willemoes estimated an object's speed at 900 mph, while a British Meteor jet pilot reported a silver disk that mirrored his movements before accelerating away. These reports, although dating from the Cold War, establish a long-standing pattern of unidentified objects operating in and around maritime exercises, potentially signaling an interest in naval surveillance or detection capabilities.</p>
+        <h2>The Physics of Transmedium Transitions</h2>
+        <p>The primary challenge in transmedium travel lies in the transition from air to water. A craft moving through the atmosphere encounters relatively low resistance, but upon entering the water, it must contend with a massive increase in drag and hydrostatic pressure. The absence of visible deceleration or structural damage in UAP cases suggests several theoretical paths for technological capability.</p>
+        <h3>Magnetohydrodynamic (MHD) Propulsion</h3>
+        <p>Magnetohydrodynamics (MHD) is a method of propulsion that uses electric and magnetic fields to accelerate a conductive fluid, such as seawater or ionized air. In the maritime domain, this creates a "caterpillar drive" a silent, non-mechanical pump that moves a vessel by exerting a Lorentz force on the ions in the water.</p>
+        <p>The mathematical foundation of this thrust is the Lorentz force equation:</p>
+        <div class="math">F = ∫ (J × B) dV</div>
+        <p>where J is the current density and B is the magnetic field. DARPA's Principles of Undersea Magnetohydrodynamic Pumps (PUMP) program is currently exploring this technology, aiming for efficiencies as high as 90% by utilizing high-temperature superconducting (HTS) magnets, such as rare-earth barium copper oxide (REBCO) magnets capable of generating 20 Tesla fields.</p>
+        <p>HRL Laboratories has recently demonstrated a proof-of-concept for an MHD pump that addresses historical issues like electrode corrosion and gas bubble formation. By using a recirculating electrochemical hydrogen cell, the HRL prototype minimizes the production of bubbles by 95%, which significantly reduces the acoustic signature and prevents the erosion of materials caused by cavitation. If UAPs utilize advanced MHD, it would explain the lack of propellers, the silent operation, and the ability to maneuver in water with minimal disturbance.</p>
+        <h3>Supercavitation and Drag Reduction</h3>
+        <p>To move through water at extreme velocities, an object must bypass skin friction drag. Supercavitation involves the creation of a vapor bubble that encapsulates the entire craft, allowing it to travel through a gas medium even while submerged. This can reduce drag by more than 90% and is currently used in high-speed torpedoes. Research into high-speed blunt bodies vertically entering water shows that at velocities approaching 1.5 km/s, shock waves form and propagate through the fluid, often leading to instability.</p>
+        <p>UAP observations, however, often show a "minimal impact" entry, which suggests a more sophisticated form of boundary-layer management than simple mechanical supercavitation. One hypothesis is the utilization of the Leidenfrost effect, where a heated hull creates a persistent vapor layer that acts as a lubricant. Experimental data indicates that active heating on a superhydrophobic surface can lead to 80-90% drag reduction in turbulent flows by establishing a stable vapor film at relatively low temperatures. This "aerodynamic Leidenfrost effect" could theoretically allow a craft to enter the water without the massive kinetic transfer typical of impact, as it "skates" on a self-generated vapor cushion.</p>
+        <h3>Advanced Metric Engineering and Warp Drive Models</h3>
+        <p>The most revolutionary explanation for transmedium UAP behavior is the manipulation of the spacetime metric, often referred to as a "warp drive." This model, derived from general relativity (e.g., the Alcubierre drive), suggests that a craft could be encapsulated in a bubble of distorted spacetime. Within this bubble, the craft remains stationary or moves at low local velocities, while the bubble itself moves through space at arbitrary speeds.</p>
+        <p>This "Metric Engineering" would provide a comprehensive solution to the transmedium problem:</p>
+        <p><strong>Massless Acceleration:</strong> Since the craft is not moving through space but rather moving the space itself, it experiences no G-forces, explaining the extreme maneuvers described by pilots.</p>
+        <p><strong>Frictionless Travel:</strong> The spacetime bubble would isolate the craft from the surrounding medium (air or water), meaning there would be no aerodynamic or hydrodynamic drag, and thus no sonic boom or water splash upon entry.</p>
+        <p><strong>Observables:</strong> This would manifest as gravitational lensing or "dark" operational signatures, where the object appears blurry or distorts the background light a feature noted in some UAP video analyses.</p>
+        <table>
+            <tr><th>Physical Mechanism</th><th>Terrestrial Application</th><th>UAP Correlation</th></tr>
+            <tr><td>MHD Drive</td><td>Next-gen silent submarines (DARPA PUMP)</td><td>Silent underwater "fast movers"</td></tr>
+            <tr><td>Supercavitation</td><td>High-speed torpedoes (VA-111 Shkval)</td><td>High-speed submerged transit</td></tr>
+            <tr><td>Leidenfrost Effect</td><td>Drag reduction in microfluidics</td><td>Minimal impact water entry</td></tr>
+            <tr><td>Warp Propulsion</td><td>Theoretical (Alcubierre / Dark Warp)</td><td>Instantaneous acceleration; no splash</td></tr>
+        </table>
+        <h2>Undersea Domain Awareness and Strategic Vulnerabilities</h2>
+        <p>The existence of highly capable, potentially hostile transmedium craft in the maritime domain poses a direct threat to the security of critical undersea infrastructure (CUI). The ocean floor is the site of a vast, fragile network of subsea fiber-optic cables that carry 99% of all intercontinental data traffic, facilitating trillions of dollars in daily financial transactions.</p>
+        <h3>Vulnerability of Subsea Fiber-Optic Networks</h3>
+        <p>There are currently over 500 active subsea cable systems globally, totaling more than 1.2 million kilometers. These cables are strategically vital but physically vulnerable, often being no thicker than a garden hose and lying unburied on the deep-ocean floor. While most of the 200 annual cable breaks are caused by accidental human activity (fishing nets or anchors), there is an escalating threat of state-sponsored sabotage.</p>
+        <p>The Russian Navy, for instance, has developed specialized deep-sea submersibles and "spy ships" designed to tap or sever these cables at extreme depths. The ability of a transmedium UAP to loiter in the deep ocean, move between continents at high speeds, and transition to the atmosphere without detection creates a "grey-zone" threat that existing maritime security frameworks are not equipped to handle.</p>
+        <table>
+            <tr><th>Infrastructure Component</th><th>Strategic Importance</th><th>Primary Threat Vector</th></tr>
+            <tr><td>Subsea Cables</td><td>$10 Trillion/day in trade; 99% of data</td><td>Anchors; deep-sea sabotage</td></tr>
+            <tr><td>Cable Landing Stations</td><td>Chokepoints for network entry</td><td>Terrestrial attack; surveillance</td></tr>
+            <tr><td>Repair Fleet</td><td>Only &lt;60 ships worldwide</td><td>Sabotage of the "repair gap"</td></tr>
+            <tr><td>Gas Pipelines</td><td>Energy security (e.g., Nord Stream)</td><td>Explosives; AUV deployment</td></tr>
+        </table>
+        <h3>Acoustic Detection and the "Fast Mover" Problem</h3>
+        <p>The United States Navy's Sound Surveillance System (SOSUS) has been the primary tool for detecting underwater anomalies since the Cold War. However, SOSUS was designed for tracking relatively slow, loud Soviet nuclear submarines. Modern "quiet" submarines and potential MHD-powered USOs are significantly more difficult to detect. Submarine sonar operators have reported "fast movers" objects tracked at speeds far exceeding the capabilities of any known submersible but a culture of secrecy often leads to these contacts being "logged and dogged" (buried in active archives) rather than investigated.</p>
+        <p>Experienced sonar operators note that the Navy does not have a formal classification for "unknown" acoustic anomalies, often forcing personnel to label strange sounds as "seismic" or "biologic". This administrative blind spot prevents the systematic study of USOs. Furthermore, the reliance on passive sonar is increasingly inadequate for detecting objects that do not use traditional propellers or mechanical systems. Advanced detection technologies, such as LIDAR using blue-green lasers, anti-neutrino detection, and satellite wake detection, are being explored as potential ways to "make the ocean transparent" and mitigate the risk of technological surprise.</p>
+        <h2>Official Recognition and Institutional Response</h2>
+        <p>The institutional response to transmedium UAPs has evolved from passive monitoring to active, scientific investigation. This shift is driven by both the increasing frequency of reports and the advocacy of high-ranking military and scientific officials.</p>
+        <h3>The AARO Mission and GREMLIN Architecture</h3>
+        <p>The All-domain Anomaly Resolution Office (AARO) serves as the primary DoD entity for UAP resolution. Its mission is to detect, identify, and mitigate UAPs near national security sites. A major technological initiative within AARO is the GREMLIN sensor suite, developed by the Georgia Tech Research Institute.</p>
+        <p>GREMLIN is a networked system that includes:</p>
+        <p><strong>3D Search Radar:</strong> To measure the range, azimuth, and elevation of target objects.</p>
+        <p><strong>Long-range EO/IR:</strong> To capture high-resolution visual and thermal signatures.</p>
+        <p><strong>RF Spectrum Monitors:</strong> To detect electronic emissions from UAP propulsion or communication systems.</p>
+        <p><strong>Pattern of Life Collection:</strong> The system is currently deployed at a "national security" site for a 90-day campaign to establish a baseline of normal activity and identify anomalies.</p>
+        <p>AARO's analytical trends indicate that while 70% of UAP reports resolve to balloons, and another significant portion are drones or birds, a small percentage exhibit truly anomalous behavior. To date, AARO has not found verifiable evidence of extraterrestrial technology, but it continues to investigate cases that exceed known performance envelopes.</p>
+        <h3>NASA's Scientific Roadmap</h3>
+        <p>NASA's involvement in UAP studies, led by an independent study team chaired by David Spergel, aims to shift the conversation toward a rigorous, evidence-based approach. The NASA report identified several "pillars" for future research:</p>
+        <p><strong>Sensor Calibration:</strong> Ensuring that instruments not designed for UAP detection (such as weather satellites) are properly calibrated to reduce false positives and sensor artifacts.</p>
+        <p><strong>Metadata Standards:</strong> Requiring detailed metadata (time, location, sensor observing modes) for all UAP reports to allow for systematic analysis.</p>
+        <p><strong>AI and Machine Learning:</strong> Using advanced algorithms to identify rare events within massive datasets of Earth-observing satellite data.</p>
+        <p><strong>Crowdsourcing:</strong> Developing smartphone-based apps to allow citizen observers to contribute high-quality data and imagery, which helps reduce the reporting stigma.</p>
+        <p>NASA emphasizes that UAP studies present a unique scientific opportunity to discover new atmospheric or oceanic phenomena, similar to how the study of "fast radio bursts" led to new insights in astrophysics.</p>
+        <h3>Testimony and Transparency Advocacy</h3>
+        <p>Rear Admiral (Ret.) Tim Gallaudet has emerged as a vocal advocate for UAP transparency, citing his own experiences with "Safety of Flight" issues. In 2015, while serving as Commander of the Naval Meteorology and Oceanography Command, Gallaudet received an urgent email detailing multiple near-midair collisions with UAPs during a carrier strike group exercise. Attached to this email was the "Go Fast" video, which showed an object with structural and flight characteristics unlike anything in the U.S. arsenal.</p>
+        <p>Gallaudet has recommended that Congress establish an independent "UAP Records Review Board" to oversee the disclosure of UAP-related data and policy across the DoD, NASA, and the Intelligence Community. He argues that excessive secrecy has eroded public trust and compromised the safety of both military and civilian aviators.</p>
+        <h2>Conclusion: Strategic Implications and Future Research</h2>
+        <p>The analysis of transmedium UAPs and their interaction with the aquatic domain reveals a significant gap in current defense capabilities and scientific understanding. The documented ability of these objects to transition between air and water without conventional kinetic signatures suggests the utilization of advanced fluid dynamics or field-based propulsion technologies. While many reports can be resolved through better sensor calibration and environmental analysis, the remaining "anomalous" cases pose a credible threat to national security and maritime infrastructure.</p>
+        <p>The strategic priority for the United States must be the continued development and deployment of all-domain sensor architectures like GREMLIN, alongside a fundamental modernization of undersea acoustic and magnetic detection systems. Furthermore, the collaboration between military agencies (AARO) and scientific bodies (NASA) is essential to transition UAP studies from the realm of anecdotal evidence to a data-driven discipline. As the global digital economy becomes increasingly dependent on the integrity of subsea networks, the ability to identify and mitigate transmedium anomalies is no longer a matter of curiosity, but a cornerstone of 21st-century domain awareness. Future research should focus on the refinement of MHD propulsion models, the investigation of boundary-layer manipulation via the Leidenfrost effect, and the rigorous declassification of historical maritime UAP records to build a comprehensive "pattern of activity" for these elusive phenomena.</p>`
+    },
+    {
+        id: 'multiverse',
+        title: 'The Multiverse Paradigm',
+        content: `<h2>The Multiverse Paradigm: 2026 Assessment</h2>
+        <p>The concept of the multiverse has transitioned from the periphery of speculative metaphysics to the absolute center of theoretical physics and modern cosmology. Over the past century, the scientific understanding of reality has undergone a sequence of profound decentralizations from a geocentric solar system to a heliocentric one, to a galactocentric universe, and finally to an expanding cosmological horizon. The multiverse represents the ultimate extension of this Copernican trajectory. It posits that the observable universe, comprising all causally connected space, time, matter, energy, and physical laws since the Big Bang, is merely a localized region within a vastly larger, potentially infinite ensemble of universes.</p>
+        <p>However, the multiverse is not a single, unified hypothesis. Rather, it is an umbrella term for a heterogeneous collection of distinct phenomena predicted by independent pillars of modern physics, including cosmic inflation, string theory, and unitary quantum mechanics. As these theories have matured, their mathematical formalisms have persistently output infinite spaces, branching wavefunctions, and virtually limitless vacuum states. This unavoidable proliferation of realities has precipitated an unprecedented epistemological crisis within the philosophy of science.</p>
+        <h3>1. Taxonomic Frameworks of the Multiverse</h3>
+        <p>To navigate the disparate predictions of parallel universes, cosmologists primarily rely on the four-level classification scheme developed by Max Tegmark, which organizes multiverse models into a hierarchy of progressively greater diversity. This taxonomy operates on the principle of subsumption: each subsequent level encompasses and expands upon the theoretical assumptions of the previous levels.</p>
+        <h4>Level I: The Ergodic Spatial Multiverse</h4>
+        <p>The Level I multiverse is widely considered the least controversial extension of standard cosmology, directly derived from the premise of an infinite, spatially flat universe populated by an ergodic distribution of matter. Under the cosmological concordance model (ΛCDM), our observable universe is a "Hubble volume" a spherical region defined by the distance light has traveled since the Big Bang. If space is infinite and the distribution of matter is sufficiently uniform at the largest scales, then all possible initial conditions and quantum fluctuations must be realized somewhere in space.</p>
+        <p>Because a Hubble volume has a finite maximum entropy and a finite number of distinct quantum states, the exact configuration of our observable universe must eventually repeat by sheer statistical necessity. It is estimated that an identical copy of our specific Hubble volume exists approximately 10¹¹⁵⁰ meters away.</p>
+        <h4>Level II: Post-Inflationary Bubble Universes</h4>
+        <p>The Level II multiverse arises from the mechanisms of chaotic eternal inflation. In inflationary cosmology, space expands at an exponential rate driven by a high-energy false vacuum. Due to quantum randomness, certain regions of this inflating space decay into a lower-energy true vacuum, causing the inflation in that specific local region to stop, while the space between these regions continues to inflate eternally.</p>
+        <p>These decayed regions form distinct "bubble universes" that are forever isolated from one another by the continuously expanding inflationary space between them. During the symmetry-breaking phase transition that forms each bubble, the effective laws of physics can crystallize differently. Consequently, Level II universes may exhibit entirely different physical constants, different particle content, and even different macroscopic dimensionalities of spacetime.</p>
+        <h4>Level III: The Quantum Many-Worlds</h4>
+        <p>While Levels I and II involve universes separated by vast gulfs of physical space, the Level III multiverse involves universes separated by Hilbert space. It is the direct consequence of the Many-Worlds Interpretation (MWI) of quantum mechanics. If the Schrödinger equation applies universally, and the wavefunction never undergoes a physical "collapse," then every quantum superposition must evolve unitarily.</p>
+        <h4>Level IV: The Ultimate Mathematical Ensemble</h4>
+        <p>The most radical extension is the Level IV multiverse, also known as the Mathematical Universe Hypothesis (MUH). It posits that mathematical structures do not merely describe physical reality; they _are_ physical reality. In this framework, any mathematical structure that is completely self-consistent exists physically.</p>
+        <table>
+            <tr><th>Multiverse Level</th><th>Underlying Theory</th><th>Defining Characteristics</th><th>Spatial/Ontological Domain</th></tr>
+            <tr><td>Level I: Ergodic</td><td>Standard Cosmology (ΛCDM)</td><td>Same physical laws, different initial conditions.</td><td>Beyond the cosmological horizon in continuous space.</td></tr>
+            <tr><td>Level II: Inflationary</td><td>Eternal Chaotic Inflation</td><td>Different physical constants, particles, and dimensions.</td><td>Spatially disconnected "bubble" domains.</td></tr>
+            <tr><td>Level III: Quantum</td><td>Unitary Quantum Mechanics (MWI)</td><td>Same physical laws, divergent quantum outcomes.</td><td>Superimposed branches in Hilbert space.</td></tr>
+            <tr><td>Level IV: Mathematical</td><td>Mathematical Universe Hypothesis</td><td>Different fundamental equations of physics.</td><td>Abstract, self-consistent mathematical structures.</td></tr>
+        </table>
+        <h3>2. The String Theory Landscape and the Swampland Conjectures</h3>
+        <p>The existence of a Level II multiverse is inextricably linked to the intersection of inflationary cosmology and string theory. String theory requires extra spatial dimensions to remain mathematically consistent. These extra dimensions are compactified into microscopic geometries known as Calabi-Yau manifolds.</p>
+        <p>The defining problem of modern string theory is that the topology of these compactified dimensions, combined with generalized magnetic fluxes found in F-theory, yields a vast number of local minima in the potential energy of the scalar fields. This collection of stable and meta-stable false vacua is known as the "String Theory Landscape". Initial estimates placed the number of distinct flux vacua at a lower bound of 10⁵⁰⁰, while more recent mathematical revisions push this number to 10²⁷²⁰⁰⁰ or even higher.</p>
+        <p>Despite its mathematical elegance, the landscape concept has faced severe theoretical pushback in the form of the "Swampland Conjectures," primarily pioneered by Cumrun Vafa. The swampland is defined as the set of low-energy effective field theories that superficially appear consistent but cannot actually be completed into a consistent, overarching theory of quantum gravity.</p>
+        <h3>3. The Cosmological Measure Problem and the Thermodynamic Paradoxes</h3>
+        <p>If the mechanisms of eternal inflation and the string landscape are true, cosmologists face a catastrophic mathematical and predictive hurdle known as the Measure Problem. In a single, finite universe, standard statistical probability operates normally. However, in an eternal multiverse, any event that has a non-zero probability of occurring will occur an infinite number of times. When one attempts to calculate the relative frequency of two events one must divide infinity by infinity.</p>
+        <h4>Evaluation of Proposed Measures</h4>
+        <p><strong>Proper-Time Cutoff:</strong> This intuitive measure evaluates regions based on a fixed proper time since the onset of inflation. However, it leads to the "youngness paradox," where observers in a 13.8-billion-year-old universe are outnumbered by observers in a 13.0-billion-year-old universe by unfathomable margins.</p>
+        <p><strong>Stationary Measure:</strong> Proposed by Andrei Linde, this measure avoids comparing regions at a global absolute time. While it successfully bypasses the youngness paradox, it erroneously predicts extreme, observationally falsified values for the primordial density contrast and the gravitational constant.</p>
+        <p><strong>Causal Diamond:</strong> Developed by Raphael Bousso, this approach removes infinity from the equation by defining a finite sample space restricted to what a single observer can in principle measure.</p>
+        <h4>The Boltzmann Brain Paradox</h4>
+        <p>The most severe consequence of a failed measure is the proliferation of Boltzmann Brains. Given an infinite amount of time and thermal equilibrium, random thermodynamic fluctuations will occasionally assemble matter into complex structures. Standard multiverse models predict that it is statistically far more likely for a fully formed brain complete with false memories to spontaneously fluctuate into existence than for a biological brain to emerge through billions of years of thermodynamic evolution.</p>
+        <table>
+            <tr><th>Multiverse Measure</th><th>Mechanism of Regularization</th><th>Primary Failure/Paradox</th><th>Current Status</th></tr>
+            <tr><td>Proper-Time</td><td>Global proper time cutoff</td><td>Youngness paradox; predicts observer age of ~13.0 Gyr.</td><td>Ruled out.</td></tr>
+            <tr><td>Stationary</td><td>Local time since stationary process</td><td>Predicts extreme values for G and primordial density.</td><td>Observationally falsified.</td></tr>
+            <tr><td>Causal Diamond</td><td>Intersection of observer light cones</td><td>Fails for negative cosmological constants (Λ &lt; 0).</td><td>Partially viable.</td></tr>
+        </table>
+        <h3>4. The Quantum Multiverse: Decoherence, Probability, and MWI</h3>
+        <p>Moving from the macro-cosmological to the quantum realm, the Level III multiverse generated by the Many-Worlds Interpretation (MWI) fundamentally alters the ontology of physical reality. Formulated by Hugh Everett III, MWI strips quantum mechanics of the ad hoc "collapse postulate" central to the Copenhagen interpretation, asserting instead that the linear, deterministic evolution of the Schrödinger equation is universally valid across all scales.</p>
+        <h4>Deriving the Born Rule</h4>
+        <p>The most profound objection to MWI is the origin of the Born rule. In recent years, highly sophisticated mathematical machinery has been deployed to derive the Born rule organically from within MWI. Sebens and Carroll utilized the concept of "self-locating uncertainty". They argued that during the infinitesimal period after decoherence but before an observer registers the measurement outcome, the observer knows the exact state of the universal wavefunction but does not know _which_ specific branch they occupy.</p>
+        <h3>5. Mathematical Consistency and the Level IV Discrepancies</h3>
+        <p>The furthest speculative boundary of the multiverse paradigm is Max Tegmark's Level IV Mathematical Universe Hypothesis. The MUH posits a radical form of Platonism: physical existence is perfectly equivalent to mathematical existence.</p>
+        <h4>Gödelian Incompleteness and the Computational Shift</h4>
+        <p>The deepest mathematical critiques of the MUH stem from Gödel's First Incompleteness Theorem and the Turing halting problem. To circumvent this paradox, Tegmark updated the MUH to the Computational Universe Hypothesis (CUH), proposing that only computable, mathematically decidable structures enjoy physical existence.</p>
+        <h3>6. Empirical Tensions and Observational Signatures (2025–2026)</h3>
+        <h4>Ruling out Exotic Symmetries: The ANITA Anomaly</h4>
+        <p>In the pursuit of parallel realities, speculative models occasionally gain traction when anomalous data appears. A notable example was the Antarctic Impulsive Transient Antenna (ANITA) experiment, which detected an anomalous high-energy particle event. However, systematic empirical follow-ups ruled this out.</p>
+        <h4>The Deepening of the Hubble Tension (2026 Consensus)</h4>
+        <p>The most significant empirical driver of multiverse-adjacent physics is the Hubble tension, representing a major crisis in the standard ΛCDM cosmological model. In mid-2025, an analysis utilizing the James Webb Space Telescope (JWST) suggested that there was no statistical tension, but this optimism was firmly overturned. By April 2026, the discrepancy had surpassed the 5σ threshold for a definitive statistical discovery. The consensus now definitively holds that the Hubble tension is real and indicates new physics beyond the standard model.</p>
+        <h4>Multiverse Bubble Collisions and Dynamic Dark Energy</h4>
+        <p>The confirmation of the Hubble tension provides potential pathways to test multiverse theories. If our universe is a bubble formed during eternal inflation (Level II), it might have collided with neighboring bubble universes early in its history.</p>
+        <h3>7. The Epistemological Demarcation Dispute</h3>
+        <p>The sheer scope of multiverse cosmology has ignited a civil war in the philosophy of science over the definition of the scientific method itself. The debate centers squarely on Karl Popper's principle of falsifiability.</p>
+        <h4>The Orthodox Critique</h4>
+        <p>An orthodox coalition of critics, including George Ellis, Joe Silk, Sabine Hossenfelder, Peter Woit, and John Horgan, argue that the multiverse comprehensively fails the Popperian test. Because Level II bubbles and Level III quantum branches are causally disconnected from us by definition, they are fundamentally unobservable.</p>
+        <h4>The Defense: Bayesian Abduction and Post-Empirical Assessment</h4>
+        <p>Proponents of the multiverse, including Sean Carroll, Richard Dawid, and Joseph Polchinski, counter that strict Popperian falsifiability is philosophically inadequate, historically inaccurate, and an overly rigid demarcation tool.</p>
+        <table>
+            <tr><th>Philosophical Stance</th><th>Key Proponents</th><th>Primary Argument</th><th>Epistemic Standard</th></tr>
+            <tr><td>Strict Falsifiability (Orthodox)</td><td>Ellis, Silk, Hossenfelder, Horgan</td><td>Unobservable entities render theories metaphysical; degrades scientific integrity.</td><td>Popperian demarcation.</td></tr>
+            <tr><td>Post-Empirical Assessment</td><td>Carroll, Dawid, Polchinski</td><td>Abduction and Bayesian updating justify confidence in unobservable outputs of successful theories.</td><td>NAA; Unexpected Coherence.</td></tr>
+        </table>
+        <h3>Conclusion</h3>
+        <p>The concept of the multiverse is not a singular, ad hoc hypothesis designed to obfuscate empirical science. Instead, it is the emergent intersection of the most rigorously tested mathematical frameworks in physics. The Level I ergodic universe is an unavoidable statistical consequence of infinite space; the Level II inflationary landscape is the necessary synthesis of cosmic expansion and string topology; the Level III quantum multiverse is the literal reading of unitary wave mechanics; and the Level IV ensemble is the ultimate logical endpoint of physical Platonism.</p>
+        <p>However, the pursuit of the multiverse has forced physics into a profound structural reckoning. The measure problem demonstrates the breakdown of classical probability in infinite spaces, leading to paradoxical absurdities like the Boltzmann Brain dominance. Concurrently, the swampland conjectures severely restrict the viability of the string landscape.</p>
+        <p>Empirical friction, vividly demonstrated by the deepening 5σ Hubble tension confirmed in 2026, suggests that the standard cosmological model requires significant modifications. Whether these anomalies are resolved through dynamic Early Dark Energy fields mapping to a larger multiverse landscape, stochastic gravitational wave interactions from bubble collisions, or a complete paradigm shift toward cyclic cosmology, remains the central objective of contemporary physics.</p>
+        <p>Ultimately, the multiverse paradigm forces the scientific community to confront the absolute limits of empiricism. Whether evaluated through strict Popperian falsifiability or through Bayesian abduction and unexpected explanatory coherence, the multiverse remains the deepest existential and physical mystery of the 21st century.</p>`
+    },
+    {
+        id: 'future-human',
+        title: 'The P47/P52 Hypothesis',
+        content: `<h2>The Future Human Hypothesis: P47 and P52 Analysis</h2>
+        <p>This document outlines the speculative framework and theoretical physics concepts underlying the <strong>P47</strong> and <strong>P52</strong> hypothesis, which interprets unidentified aerial phenomena (UAP) and anomalous events as the activities of advanced human beings from 47,000 and 52,000 years in the future.</p>
+        <h3>1. Chronological & Evolutionary Foundations</h3>
+        <p>The core premise of the P47/P52 theory relies on deep-future temporal scaling. The numbers represent temporal offsets from our present era (t₀).</p>
+        <div class="math">Δt₁ = 47,000 years, Δt₂ = 52,000 years</div>
+        <p><strong>Generational Scale:</strong> Assuming a generation spans 20 to 25 years, the divergence represents an evolutionary step of approximately 1,900 to 2,600 generations.</p>
+        <p><strong>Evolutionary Vector:</strong> Mainstream models of human evolution over this timeframe, absent selective pressure and considering technological adaptation, suggest radical shifts in morphology. These include reduced jaw size, larger cranial capacity, and optimization for low-gravity or high-radiation environments.</p>
+        <p><strong>The Five-Millennium Gap:</strong> The 5,000-year differential between the two planes may represent distinct technological or cultural epochs, distinguishing an era of initial planetary expansion from one of mature space-time manipulation.</p>
+        <h3>2. Theoretical Physics of Retrocausality and Transport</h3>
+        <p>For a civilization to look back or travel back across spans of 40,000 to 50,000 years, specific models of space-time modification are required:</p>
+        <pre style="background:var(--surface);padding:20px;font-family:var(--font-mono);color:var(--accent);">[Future Era: P47 / P52]
+  |
+(Space-time Curvature)
+  |
+  v
+[Closed Timelike Curves (CTC)]
+  |
+  v
+[Present Era: t0 Interception]</pre>
+        <h4>A. Space-Time Curvature and CTCs</h4>
+        <p>According to general relativity, closed timelike curves allow travel into the past. However, macroscopic transit typically requires violations of the weak energy condition.</p>
+        <p>The theory bypasses this by suggesting that <strong>quantum information rather than physical matter</strong> is transmitted, reducing the thermodynamic energy requirements.</p>
+        <h4>B. The Eigenfield Cancellation Effect</h4>
+        <p>Proponents suggest that future humans use localized fields to avoid detection:</p>
+        <p><strong>Eigenfields:</strong> Modulated radiation and gravity waves generated by the observer's craft are designed to match the background metric of the Earth's space-time.</p>
+        <p><strong>Cancellation:</strong> This interaction leads to a mutual cancellation effect, rendering the origin point and the craft invisible to current electromagnetic sensing arrays.</p>
+        <h3>3. Societal and Information Theory Implications</h3>
+        <p>The hypothesis suggests that if the entities are "us from the future," their observed behavior is governed by strict protocols to prevent paradoxes:</p>
+        <p><strong>Non-Interference / Quarantine:</strong> To avoid causality violations (the "predestination paradox"), interaction is restricted to low-interaction, high-efficiency data collection.</p>
+        <p><strong>Aesthetic Minimalism:</strong> Observers note that the manifestations (e.g., craft or interfaces) appear hyper-functional and devoid of human ornamentation, suggesting a highly utilitarian design aesthetic shaped by post-scarcity engineering.</p>
+        <h3>4. Technical Constraints</h3>
+        <table>
+            <tr><th>Dimension / Vector</th><th>Temporal Offset</th><th>Evolutionary Divergence</th><th>Physical Constraints & Energy Costs</th></tr>
+            <tr><td>P47</td><td>47,000 years</td><td>1,500-1,800 generations</td><td>Moderate entropy decrease, local coordinate shift</td></tr>
+            <tr><td>P52</td><td>52,000 years</td><td>2,000-2,300 generations</td><td>High entropy manipulation, non-linear time path</td></tr>
+        </table>
+        <h3>5. Future Evolution and Cultural Divergence Analysis</h3>
+        <p>When assessing the socio-technological trajectories of P47 and P52, we can observe distinct shifts in operational frameworks:</p>
+        <p><strong>P47 Trajectory (The Baseline Data Plane):</strong> Focuses on historical reconstruction, conservation of planetary origins, and passive data recording. The aesthetic of its associated UAP is often characterized by simple, rounded geometries, reminiscent of modern premium minimalist design.</p>
+        <p><strong>P52 Trajectory (The Active Calibration Plane):</strong> Represents a point 5,000 years more advanced, characterized by high-fidelity energy and light manipulation. This epoch is theorized to master ambient luminescence engines and advanced materials science, resulting in structural changes in design and energy output.</p>`
+    },
+    {
+        id: 'quantum-immortality',
+        title: 'Quantum Immortality',
+        content: `<h2>Quantum Immortality</h2>
+        <p>Quantum immortality is that consciousness never experiences its own total ending. Every quantum event with multiple possible outcomes branches reality into different versions. In that view, reality does not choose one result while deleting the others. Every allowed outcome happens, but in separate branches.</p>
+        <p>The reason quantum immortality feels so disturbing is simple from the outside, a person can die. Other people can see it happen. But from the inside, the person never experiences "being dead," because death has no observer inside it. Consciousness only continues in branches where some version of the observer remains conscious. So the theory is not saying the body is indestructible. It is saying first-person awareness may only ever find itself in survival branches.</p>`
+    }
+];
+
 const gallery = document.getElementById('gallery');
+const researchNav = document.getElementById('research-nav');
+const researchContainer = document.getElementById('research-container');
+const homePage = document.getElementById('home-page');
+const researchPage = document.getElementById('research-page');
 const lb = document.getElementById('lightbox');
 const lbWrap = document.getElementById('lb-media-wrap');
-const lbCount = document.getElementById('lb-count');
+const lbInfo = document.getElementById('lb-info');
 
-const videoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        const v = entry.target;
-        if (entry.isIntersecting) {
-            v.play().catch(() => {});
+function initGallery() {
+    media.forEach((item, index) => {
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.onclick = () => openLb(index);
+
+        if (item.type === 'video') {
+            const video = document.createElement('video');
+            video.src = item.url;
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+            el.appendChild(video);
         } else {
-            v.pause();
+            const img = document.createElement('img');
+            img.src = item.url;
+            el.appendChild(img);
         }
+
+        gallery.appendChild(el);
     });
-}, { threshold: 0.1 });
-
-function reveal(el, loading) {
-    loading.style.display = 'none';
-    el.style.display = 'block';
 }
 
-function createItem(item, index) {
-    const el = document.createElement('div');
-    el.className = 'item';
+function initNav() {
+    const homeBtn = document.createElement('button');
+    homeBtn.textContent = 'DATABASE';
+    homeBtn.className = 'active';
+    homeBtn.onclick = () => showPage('home', homeBtn);
+    researchNav.appendChild(homeBtn);
 
-    const loading = document.createElement('div');
-    loading.className = 'loading';
-    loading.innerHTML = '<div class="spinner"></div>';
-    el.appendChild(loading);
+    const divider = document.createElement('div');
+    divider.className = 'nav-divider';
+    researchNav.appendChild(divider);
 
-    if (item.type === 'video') {
-        const badge = document.createElement('div');
-        badge.className = 'video-badge';
-        badge.textContent = 'MP4';
-        el.appendChild(badge);
+    researchDocs.forEach(doc => {
+        const btn = document.createElement('button');
+        btn.textContent = doc.title;
+        btn.onclick = () => showResearch(doc.id, btn);
+        researchNav.appendChild(btn);
+    });
+}
 
-        const video = document.createElement('video');
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        video.autoplay = true;
-        video.preload = 'metadata';
+function showPage(page, btn) {
+    document.querySelectorAll('.research-nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-        video.onloadeddata = () => reveal(video, loading);
-        video.onerror = () => showError(el, loading);
-
-        video.src = item.url;
-        el.appendChild(video);
-        videoObserver.observe(video);
-    } else {
-        const img = document.createElement('img');
-        img.alt = '';
-        img.loading = 'lazy';
-        img.decoding = 'async';
-
-        img.onload = () => reveal(img, loading);
-        img.onerror = () => showError(el, loading);
-
-        img.src = item.url;
-
-        if (img.complete && img.naturalWidth > 0) {
-            reveal(img, loading);
-        }
-
-        el.appendChild(img);
+    if (page === 'home') {
+        homePage.classList.add('active');
+        researchPage.classList.remove('active');
     }
-
-    el.onclick = () => openLb(index);
-    return el;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function showError(el, loading) {
-    loading.style.display = 'none';
-    const err = document.createElement('div');
-    err.className = 'error';
-    err.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Failed to load';
-    el.appendChild(err);
+function showResearch(id, btn) {
+    const doc = researchDocs.find(d => d.id === id);
+    if (!doc) return;
+
+    document.querySelectorAll('.research-nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    homePage.classList.remove('active');
+    researchPage.classList.add('active');
+
+    researchContainer.innerHTML = `
+        <div class="dossier research-page">
+            ${doc.content}
+        </div>
+    `;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-media.forEach((item, i) => gallery.appendChild(createItem(item, i)));
+let currentIndex = 0;
 
 function openLb(index) {
-    current = index;
-    renderLb();
+    currentIndex = index;
+    const item = media[index];
+    if (item.type === 'video') {
+        lbWrap.innerHTML = `<video src="${item.url}" controls autoplay></video>`;
+        lbInfo.innerHTML = `<h3>MEDIA INFO</h3><p>ID: ${item.id}</p><p>Type: Video</p>`;
+    } else {
+        lbWrap.innerHTML = `<img src="${item.url}" onclick="toggleZoom(this)">`;
+        lbInfo.innerHTML = `<h3>MEDIA INFO</h3><p>ID: ${item.id}</p><p>Type: Image</p><p>Click image to zoom</p>`;
+    }
     lb.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
-function renderLb() {
-    lbWrap.innerHTML = '';
-    const item = media[current];
+function navigateLb(direction) {
+    currentIndex = (currentIndex + direction + media.length) % media.length;
+    openLb(currentIndex);
+}
 
-    if (item.type === 'video') {
-        const video = document.createElement('video');
-        video.src = item.url;
-        video.controls = true;
-        video.autoplay = true;
-        lbWrap.appendChild(video);
-    } else {
-        const img = document.createElement('img');
-        img.src = item.url;
-        lbWrap.appendChild(img);
-    }
-
-    lbCount.textContent = `${current + 1} / ${media.length}`;
+function toggleZoom(img) {
+    img.classList.toggle('zoomed');
 }
 
 function closeLb() {
     lb.classList.remove('active');
     document.body.style.overflow = '';
-    const v = lbWrap.querySelector('video');
-    if (v) v.pause();
 }
 
-function nav(dir) {
-    current += dir;
-    if (current < 0) current = media.length - 1;
-    if (current >= media.length) current = 0;
-    renderLb();
-}
-
-document.addEventListener('keydown', e => {
-    if (!lb.classList.contains('active')) return;
-    if (e.key === 'Escape') closeLb();
-    if (e.key === 'ArrowLeft') nav(-1);
-    if (e.key === 'ArrowRight') nav(1);
-});
-
-lb.addEventListener('click', e => {
-    if (e.target === lb) closeLb();
+let touchStartX = 0;
+lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+lb.addEventListener('touchend', e => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+        navigateLb(diff > 0 ? 1 : -1);
+    }
 });
 
 const canvas = document.getElementById('bg');
 const ctx = canvas.getContext('2d');
 let w, h;
+let particles = [];
 
-function drawStars() {
+function initBg() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-    ctx.clearRect(0, 0, w, h);
-    for (let i = 0; i < 300; i++) {
-        const x = Math.random() * w;
-        const y = Math.random() * h;
-        const r = Math.random() * 1.1;
-        const a = Math.random() * 0.5 + 0.05;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${a})`;
-        ctx.fill();
-    }
-}
-
-drawStars();
-let resizeTimer;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(drawStars, 150);
-});
-
-const researchDocs = [
-    {
-        id: 'transmedium',
-        title: 'Technical Assessment of Transmedium UAP',
-        content: `<h2>Technical Assessment of Transmedium Unidentified Anomalous Phenomena</h2>
-<p>The strategic landscape of national security is currently undergoing a fundamental reorientation driven by the recognition of Unidentified Anomalous Phenomena (UAP) that exhibit capabilities transcending traditional domain boundaries. Historically, the military and intelligence communities have categorized unidentified objects according to the medium in which they were detected principally as aerial or maritime anomalies. However, contemporary sensor data and multi-witness accounts have revealed a class of objects capable of seamless transmedium travel, specifically transitioning between the atmosphere and the hydrosphere without the catastrophic structural failure or massive kinetic energy dissipation typically associated with such maneuvers.</p>
-
-<h3>Foundational Framework and Taxonomic Definitions</h3>
-<p>The shift in nomenclature from Unidentified Flying Objects (UFOs) to Unidentified Anomalous Phenomena (UAP) is more than a linguistic rebranding; it represents a comprehensive expansion of the investigatory scope. As codified in the National Defense Authorization Act (NDAA) for Fiscal Year 2023, UAPs are defined as airborne objects that are not immediately identifiable, transmedium objects or devices, and submerged objects that display performance characteristics suggesting they may be related to the former categories.</p>
-
-<h3>Forensic Analysis of High-Fidelity Transmedium Cases</h3>
-
-<h4>The 2013 Aguadilla Infrared Analysis</h4>
-<p>On April 25, 2013, an infrared (IR) sensor onboard a U.S. Customs and Border Protection (CBP) DHC-8 aircraft tracked an unidentified object over Rafael Hernandez Airport in Aguadilla, Puerto Rico. The resulting thermal video, which spans approximately three minutes, provides a detailed record of an object exhibiting flight characteristics that challenge conventional aviation standards. The Scientific Coalition for UAP Studies (SCU) conducted a 165-page forensic investigation into the footage.</p>
-
-<p>The object was observed traveling at speeds approaching 100 mph at extremely low altitudes, sometimes below tree-top level, without navigation lights or discernible propulsion surfaces. Most significantly, the object was filmed entering the Atlantic Ocean with minimal impact, maintaining its trajectory without the large-scale splash or deceleration that would be expected of a solid object hitting the water at high speed.</p>
-
-<h4>The USS Omaha and San Diego Swarms</h4>
-<p>In July 2019, the USS Omaha recorded a spherical object hovering off the coast of San Diego before it eased down into the water. This incident was part of a larger series of encounters involving multiple warships, including the USS Russell and USS Bunker Hill, which detected swarms of objects ranging from 14 to over 100 units conducting coordinated maneuvers at speeds near 160 mph.</p>
-
-<table>
-<thead><tr><th>Case Identifier</th><th>Date</th><th>Primary Sensor</th><th>Key Transmedium Observable</th><th>Official Assessment</th></tr></thead>
-<tbody>
-<tr><td>Aguadilla, PR</td><td>April 2013</td><td>Wescam MX-15D (IR)</td><td>Minimal impact water entry; splitting</td><td>Resolved as likely sensor artifact (AARO)</td></tr>
-<tr><td>USS Omaha</td><td>July 2019</td><td>FLIR / Radar</td><td>Controlled descent into water; no splash</td><td>Verified as UAP; investigation ongoing</td></tr>
-<tr><td>USS Nimitz</td><td>Nov 2004</td><td>Pilot Visual / Radar</td><td>Tic Tac hovering over churning water</td><td>Verified as UAP; anomalous performance</td></tr>
-<tr><td>South Asia MQ-9</td><td>2023</td><td>MQ-9 IR Sensor</td><td>Apparent atmospheric cavitation wake</td><td>Resolved as sensor software artifact</td></tr>
-</tbody>
-</table>
-
-<h3>The Physics of Transmedium Transitions</h3>
-
-<h4>Magnetohydrodynamic (MHD) Propulsion</h4>
-<p>Magnetohydrodynamics (MHD) is a method of propulsion that uses electric and magnetic fields to accelerate a conductive fluid, such as seawater or ionized air. In the maritime domain, this creates a caterpillar drive a silent, non-mechanical pump that moves a vessel by exerting a Lorentz force on the ions in the water.</p>
-
-<p>The mathematical foundation of this thrust is the Lorentz force equation:</p>
-<div class="math">F = &#x222B; (J &#x00D7; B) dV</div>
-<p>where J is the current density and B is the magnetic field. DARPA's Principles of Undersea Magnetohydrodynamic Pumps (PUMP) program is currently exploring this technology, aiming for efficiencies as high as 90% by utilizing high-temperature superconducting (HTS) magnets.</p>
-
-<h4>Supercavitation and Drag Reduction</h4>
-<p>To move through water at extreme velocities, an object must bypass skin friction drag. Supercavitation involves the creation of a vapor bubble that encapsulates the entire craft, allowing it to travel through a gas medium even while submerged. This can reduce drag by more than 90% and is currently used in high-speed torpedoes.</p>
-
-<h4>Advanced Metric Engineering and Warp Drive Models</h4>
-<p>The most revolutionary explanation for transmedium UAP behavior is the manipulation of the spacetime metric, often referred to as a warp drive. This model, derived from general relativity (e.g., the Alcubierre drive), suggests that a craft could be encapsulated in a bubble of distorted spacetime. Within this bubble, the craft remains stationary or moves at low local velocities, while the bubble itself moves through space at arbitrary speeds.</p>
-
-<table>
-<thead><tr><th>Physical Mechanism</th><th>Terrestrial Application</th><th>UAP Correlation</th></tr></thead>
-<tbody>
-<tr><td>MHD Drive</td><td>Next-gen silent submarines (DARPA PUMP)</td><td>Silent underwater fast movers</td></tr>
-<tr><td>Supercavitation</td><td>High-speed torpedoes (VA-111 Shkval)</td><td>High-speed submerged transit</td></tr>
-<tr><td>Leidenfrost Effect</td><td>Drag reduction in microfluidics</td><td>Minimal impact water entry</td></tr>
-<tr><td>Warp Propulsion</td><td>Theoretical (Alcubierre / Dark Warp)</td><td>Instantaneous acceleration; no splash</td></tr>
-</tbody>
-</table>
-
-<h3>Undersea Domain Awareness and Strategic Vulnerabilities</h3>
-<p>The existence of highly capable, potentially hostile transmedium craft in the maritime domain poses a direct threat to the security of critical undersea infrastructure (CUI). The ocean floor is the site of a vast, fragile network of subsea fiber-optic cables that carry 99% of all intercontinental data traffic, facilitating trillions of dollars in daily financial transactions.</p>
-
-<h3>Official Recognition and Institutional Response</h3>
-<p>The All-domain Anomaly Resolution Office (AARO) serves as the primary DoD entity for UAP resolution. Its mission is to detect, identify, and mitigate UAPs near national security sites. A major technological initiative within AARO is the GREMLIN sensor suite, developed by the Georgia Tech Research Institute.</p>
-
-<p>NASA's involvement in UAP studies, led by an independent study team chaired by David Spergel, aims to shift the conversation toward a rigorous, evidence-based approach. The NASA report identified several pillars for future research: Sensor Calibration, Metadata Standards, AI and Machine Learning, and Crowdsourcing.</p>`
-    },
-    {
-        id: 'multiverse',
-        title: 'The Multiverse Paradigm',
-        content: `<h2>The Multiverse Paradigm: A 2026 Assessment</h2>
-<p>The concept of the multiverse has transitioned from the periphery of speculative metaphysics to the absolute center of theoretical physics and modern cosmology. Over the past century, the scientific understanding of reality has undergone a sequence of profound decentralizations from a geocentric solar system to a heliocentric one, to a galactocentric universe, and finally to an expanding cosmological horizon. The multiverse represents the ultimate extension of this Copernican trajectory.</p>
-
-<h3>Taxonomic Frameworks of the Multiverse</h3>
-<p>To navigate the disparate predictions of parallel universes, cosmologists primarily rely on the four-level classification scheme developed by Max Tegmark, which organizes multiverse models into a hierarchy of progressively greater diversity.</p>
-
-<h4>Level I: The Ergodic Spatial Multiverse</h4>
-<p>The Level I multiverse is widely considered the least controversial extension of standard cosmology, directly derived from the premise of an infinite, spatially flat universe populated by an ergodic distribution of matter. Under the cosmological concordance model (&#x039B;CDM), our observable universe is a Hubble volume a spherical region defined by the distance light has traveled since the Big Bang.</p>
-
-<h4>Level II: Post-Inflationary Bubble Universes</h4>
-<p>The Level II multiverse arises from the mechanisms of chaotic eternal inflation. In inflationary cosmology, space expands at an exponential rate driven by a high-energy false vacuum. Due to quantum randomness, certain regions of this inflating space decay into a lower-energy true vacuum, causing the inflation in that specific local region to stop, while the space between these regions continues to inflate eternally.</p>
-
-<h4>Level III: The Quantum Many-Worlds</h4>
-<p>While Levels I and II involve universes separated by vast gulfs of physical space, the Level III multiverse involves universes separated by Hilbert space. It is the direct consequence of the Many-Worlds Interpretation (MWI) of quantum mechanics.</p>
-
-<h4>Level IV: The Ultimate Mathematical Ensemble</h4>
-<p>The most radical extension is the Level IV multiverse, also known as the Mathematical Universe Hypothesis (MUH). It posits that mathematical structures do not merely describe physical reality; they are physical reality.</p>
-
-<table>
-<thead><tr><th>Multiverse Level</th><th>Underlying Theory</th><th>Defining Characteristics</th><th>Spatial/Ontological Domain</th></tr></thead>
-<tbody>
-<tr><td>Level I: Ergodic</td><td>Standard Cosmology (&#x039B;CDM)</td><td>Same physical laws, different initial conditions</td><td>Beyond the cosmological horizon in continuous space</td></tr>
-<tr><td>Level II: Inflationary</td><td>Eternal Chaotic Inflation</td><td>Different physical constants, particles, and dimensions</td><td>Spatially disconnected bubble domains</td></tr>
-<tr><td>Level III: Quantum</td><td>Unitary Quantum Mechanics (MWI)</td><td>Same physical laws, divergent quantum outcomes</td><td>Superimposed branches in Hilbert space</td></tr>
-<tr><td>Level IV: Mathematical</td><td>Mathematical Universe Hypothesis</td><td>Different fundamental equations of physics</td><td>Abstract, self-consistent mathematical structures</td></tr>
-</tbody>
-</table>
-
-<h3>The String Theory Landscape and the Swampland Conjectures</h3>
-<p>The existence of a Level II multiverse is inextricably linked to the intersection of inflationary cosmology and string theory. String theory, the leading candidate for a unified theory of quantum gravity, requires extra spatial dimensions to remain mathematically consistent. These extra dimensions are compactified into microscopic geometries known as Calabi-Yau manifolds.</p>
-
-<p>The defining problem of modern string theory is that the topology of these compactified dimensions, combined with generalized magnetic fluxes found in F-theory, yields a vast number of local minima in the potential energy of the scalar fields. This collection of stable and meta-stable false vacua is known as the String Theory Landscape.</p>
-
-<h3>The Cosmological Measure Problem</h3>
-<p>If the mechanisms of eternal inflation and the string landscape are true, cosmologists face a catastrophic mathematical and predictive hurdle known as the Measure Problem. In a single, finite universe, standard statistical probability operates normally. However, in an eternal multiverse, any event that has a non-zero probability of occurring will occur an infinite number of times.</p>
-
-<h3>The Quantum Multiverse: Decoherence, Probability, and MWI</h3>
-<p>Moving from the macro-cosmological to the quantum realm, the Level III multiverse generated by the Many-Worlds Interpretation (MWI) fundamentally alters the ontology of physical reality. Formulated by Hugh Everett III, MWI strips quantum mechanics of the ad hoc collapse postulate central to the Copenhagen interpretation.</p>
-
-<h3>Empirical Tensions and Observational Signatures (2025-2026)</h3>
-<p>While Levels II, III, and IV postulate entities that exist far beyond direct observation, the empirical consequences of multiverse cosmology are tightly intertwined with observable anomalies in our own universe.</p>
-
-<p>The most significant empirical driver of multiverse-adjacent physics is the Hubble tension, representing a major crisis in the standard &#x039B;CDM cosmological model. Measurements of the Hubble constant (H&#x2080;) persistently yield conflicting values. By April 2026, the discrepancy had surpassed the 5&#x03C3; threshold for a definitive statistical discovery.</p>`
-    },
-    {
-        id: 'future-human',
-        title: 'The Future Human Hypothesis',
-        content: `<h2>The Future Human Hypothesis: P47 and P52 Analysis</h2>
-<p>This document outlines the speculative framework and theoretical physics concepts underlying the P47 and P52 hypothesis, which interprets unidentified aerial phenomena (UAP) and anomalous events as the activities of advanced human beings from 47,000 and 52,000 years in the future.</p>
-
-<h3>Chronological and Evolutionary Foundations</h3>
-<p>The core premise of the P47/P52 theory relies on deep-future temporal scaling. The numbers represent temporal offsets from our present era (t&#x2080;).</p>
-<div class="math">&#x0394;t&#x2081; = 47,000 years, &#x0394;t&#x2082; = 52,000 years</div>
-
-<p>Assuming a generation spans 20 to 25 years, the divergence represents an evolutionary step of approximately 1,900 to 2,600 generations. Mainstream models of human evolution over this timeframe, absent selective pressure and considering technological adaptation, suggest radical shifts in morphology. These include reduced jaw size, larger cranial capacity, and optimization for low-gravity or high-radiation environments.</p>
-
-<p>The Five-Millennium Gap: The 5,000-year differential between the two planes may represent distinct technological or cultural epochs, distinguishing an era of initial planetary expansion from one of mature space-time manipulation.</p>
-
-<h3>Theoretical Physics of Retrocausality and Transport</h3>
-<p>For a civilization to look back or travel back across spans of 40,000-50,000 years, specific models of space-time modification are required.</p>
-
-<h4>Space-Time Curvature and CTCs</h4>
-<p>According to general relativity, closed timelike curves allow travel into the past. However, macroscopic transit typically requires violations of the weak energy condition. The theory bypasses this by suggesting that quantum information rather than physical matter is transmitted, reducing the thermodynamic energy requirements.</p>
-
-<h4>The Eigenfield Cancellation Effect</h4>
-<p>Proponents suggest that future humans use localized fields to avoid detection:</p>
-<ul>
-<li><strong>Eigenfields:</strong> Modulated radiation and gravity waves generated by the observer's craft are designed to match the background metric of the Earth's space-time.</li>
-<li><strong>Cancellation:</strong> This interaction leads to a mutual cancellation effect, rendering the origin point and the craft invisible to current electromagnetic sensing arrays.</li>
-</ul>
-
-<h3>Societal and Information Theory Implications</h3>
-<p>The hypothesis suggests that if the entities are us from the future, their observed behavior is governed by strict protocols to prevent paradoxes:</p>
-<ul>
-<li><strong>Non-Interference / Quarantine:</strong> To avoid causality violations (the predestination paradox), interaction is restricted to low-interaction, high-efficiency data collection.</li>
-<li><strong>Aesthetic Minimalism:</strong> Observers note that the manifestations (e.g., craft or interfaces) appear hyper-functional and devoid of human ornamentation, suggesting a highly utilitarian design aesthetic shaped by post-scarcity engineering.</li>
-</ul>
-
-<table>
-<thead><tr><th>Dimension / Vector</th><th>Estimated Temporal Offset</th><th>Proposed Evolutionary Divergence</th><th>Physical Constraints & Energy Costs</th></tr></thead>
-<tbody>
-<tr><td>P47</td><td>47,000 years</td><td>1,500-1,800 generations</td><td>Moderate entropy decrease, local coordinate shift</td></tr>
-<tr><td>P52</td><td>52,000 years</td><td>2,000-2,300 generations</td><td>High entropy manipulation, non-linear time path</td></tr>
-</tbody>
-</table>
-
-<h3>Future Evolution and Cultural Divergence Analysis</h3>
-<p>When assessing the socio-technological trajectories of P47 and P52, we can observe distinct shifts in operational frameworks:</p>
-
-<p><strong>P47 Trajectory (The Baseline Data Plane):</strong> Focuses on historical reconstruction, conservation of planetary origins, and passive data recording. The aesthetic of its associated UAP is often characterized by simple, rounded geometries, reminiscent of modern premium minimalist design.</p>
-
-<p><strong>P52 Trajectory (The Active Calibration Plane):</strong> Represents a point 5,000 years more advanced, characterized by high-fidelity energy and light manipulation. This epoch is theorized to master ambient luminescence engines and advanced materials science, resulting in structural changes in design and energy output.</p>`
-    },
-    {
-        id: 'string-theory',
-        title: 'String Theory & Quantum Geometry',
-        content: `<h2>A Comprehensive Research Analysis of String Theory and the Quantum Geometry of Spacetime</h2>
-
-<h3>The Historical Evolution of the S-Matrix and the Genesis of Dual Models</h3>
-<p>The conceptual origins of string theory are not found in the quest for gravity, but rather in the attempt to understand the strong nuclear interaction during an era before the wide acceptance of Quantum Chromodynamics. In the late 1960s, particle physics faced a crisis of complexity as high-energy accelerators revealed a proliferating zoo of hadronic resonances.</p>
-
-<p>A significant breakthrough occurred in 1968 when Gabriele Veneziano, while working at CERN, identified the Euler beta function as a viable description for the scattering of four mesons. This Veneziano amplitude exhibited a property known as duality, where the exchange of particles in the s-channel (direct scattering) was mathematically equivalent to the exchange in the t-channel (force mediation).</p>
-
-<table>
-<thead><tr><th>Milestone</th><th>Year</th><th>Key Figures</th><th>Contribution</th></tr></thead>
-<tbody>
-<tr><td>S-Matrix Introduction</td><td>1937-43</td><td>Wheeler, Heisenberg</td><td>Focusing on scattering amplitudes rather than local fields</td></tr>
-<tr><td>Veneziano Amplitude</td><td>1968</td><td>Gabriele Veneziano</td><td>Discovered Euler beta function describes hadron scattering</td></tr>
-<tr><td>String Interpretation</td><td>1970</td><td>Nambu, Nielsen, Susskind</td><td>Identified the vibrating string as the physical basis of dual models</td></tr>
-<tr><td>Gravitational Pivot</td><td>1974</td><td>Scherk, Schwarz, Yoneya</td><td>Realized the massless spin-2 state was the graviton</td></tr>
-<tr><td>First Revolution</td><td>1984</td><td>Green, Schwarz</td><td>Proved anomaly cancellation in Type I string theory</td></tr>
-<tr><td>Second Revolution</td><td>1995</td><td>Edward Witten</td><td>Unified the five theories into 11D M-theory via dualities</td></tr>
-</tbody>
-</table>
-
-<h3>Fundamental Formalism: From Point Particles to Relativistic Strings</h3>
-<p>The transition from a zero-dimensional point-particle description to a one-dimensional string-based framework necessitates a radical revision of the action principles that govern motion. In string theory, the path is replaced by a worldsheet, and the dynamics are governed by the Nambu-Goto action, which is proportional to the area of this surface.</p>
-
-<p>The Nambu-Goto action is expressed as:</p>
-<div class="math">S<sub>NG</sub> = -T &#x222B; d&#x03C4; d&#x03C3; &#x221A;(-det(G<sub>&#x03BC;&#x03BD;</sub> &#x2202;<sub>&#x03B1;</sub>X<sup>&#x03BC;</sup> &#x2202;<sub>&#x03B2;</sub>X<sup>&#x03BD;</sup>))</div>
-
-<p>where T represents the string tension, &#x03C4; and &#x03C3; are the worldsheet coordinates, and G<sub>&#x03BC;&#x03BD;</sub> is the spacetime metric.</p>
-
-<h3>Supersymmetry and the Critical Dimensionality of Spacetime</h3>
-<p>The original bosonic string theory suffered from two fatal flaws: it did not include fermions and it predicted a tachyon, a particle with negative mass squared that signaled a fundamental instability in the vacuum. To resolve these issues, theorists introduced supersymmetry (SUSY), a symmetry that relates bosons to fermions.</p>
-
-<p>A profound consequence of the mathematical consistency of superstring theory is the requirement of extra spatial dimensions. For the theory to be free from ghosts and quantum anomalies, the strings must vibrate in a specific number of dimensions. In superstring theory, this critical dimension is D=10 (nine spatial dimensions and one time dimension).</p>
-
-<table>
-<thead><tr><th>Feature</th><th>Bosonic String Theory</th><th>Superstring Theory</th></tr></thead>
-<tbody>
-<tr><td>Particle Types</td><td>Bosons only</td><td>Bosons and Fermions</td></tr>
-<tr><td>Critical Dimensions</td><td>26</td><td>10</td></tr>
-<tr><td>Stability</td><td>Unstable (Tachyons)</td><td>Stable (No tachyons)</td></tr>
-<tr><td>Unification</td><td>Forces only</td><td>Forces and Matter</td></tr>
-<tr><td>Vacuum</td><td>Ill-defined</td><td>Supersymmetric vacua</td></tr>
-</tbody>
-</table>
-
-<h3>The Second Superstring Revolution and the Emergence of M-Theory</h3>
-<p>In 1995, Edward Witten delivered a seminal lecture at the University of Southern California that fundamentally transformed the field. He conjectured that the five superstring theories were not distinct entities but were instead different limits of a single, more fundamental 11-dimensional theory he named M-theory.</p>
-
-<h4>The Mechanism of Duality: S and T-Duality</h4>
-<p>Dualities are the cornerstone of the modern understanding of string theory. They allow physicists to solve problems in a regime where one theory is strongly coupled by translating the problem into a weakly coupled dual theory where the math is simpler.</p>
-
-<ul>
-<li><strong>T-Duality (Target Space Duality):</strong> Relates the physics of a string on a circle of radius R to that of a string on a circle of radius 1/R.</li>
-<li><strong>S-Duality (Strong-Weak Duality):</strong> Relates the strong-coupling limit of one theory to the weak-coupling limit of another.</li>
-</ul>
-
-<table>
-<thead><tr><th>Duality Type</th><th>Primary Transformation</th><th>Theoretical Connection</th></tr></thead>
-<tbody>
-<tr><td>T-Duality</td><td>R &#x2194; &#x03B1;' / R</td><td>IIA &#x2194; IIB; HO &#x2194; HE</td></tr>
-<tr><td>S-Duality</td><td>g &#x2194; 1/g</td><td>Type I &#x2194; HO; IIB &#x2194; IIB</td></tr>
-<tr><td>M-Unification</td><td>g<sub>IIA</sub> &#x2192; &#x221E;</td><td>IIA &#x2192; 11D M-Theory</td></tr>
-</tbody>
-</table>
-
-<h3>Black Hole Thermodynamics and Microstate Counting</h3>
-<p>One of the most rigorous tests for any theory of quantum gravity is its ability to explain the thermodynamics of black holes. In 1996, Andrew Strominger and Cumrun Vafa used the tools of the second superstring revolution to provide the first microscopic derivation of black hole entropy.</p>
-
-<p>They focused on extremal black holes those with the minimum possible mass for a given charge, which are stable and mathematically tractable. By modeling these black holes as a collection of D-branes and strings, they were able to count the quantum states (microstates) of the system. The result was a triumphant success: the number of microstates N led to a statistical entropy S = k<sub>B</sub> ln N that exactly matched the Bekenstein-Hawking formula.</p>
-
-<h3>The Holographic Principle and the AdS/CFT Correspondence</h3>
-<p>The insights gained from black hole entropy led to the formulation of the holographic principle, an idea proposed by Gerard 't Hooft and Leonard Susskind which suggests that the description of a volume of space can be thought of as encoded on a lower-dimensional boundary.</p>
-
-<p>The most precise realization of this principle is the AdS/CFT correspondence, discovered by Juan Maldacena in late 1997. It posits a complete equivalence between a theory of quantum gravity in a five-dimensional Anti-de Sitter (AdS) space and a four-dimensional Conformal Field Theory (CFT) without gravity living on the boundary.</p>
-
-<h3>The Swampland Program and de Sitter Physics</h3>
-<p>In response to the landscape problem, Cumrun Vafa initiated the Swampland Program in 2005. The goal of this program is to delineate the Landscape the set of low-energy effective theories that are compatible with a UV-complete theory of quantum gravity from the Swampland, which consists of theories that look consistent but actually have no quantum gravity completion.</p>
-
-<table>
-<thead><tr><th>Conjecture</th><th>Implication for our Universe</th><th>Current Status</th></tr></thead>
-<tbody>
-<tr><td>Weak Gravity</td><td>Gravity must be weakest</td><td>Widely accepted</td></tr>
-<tr><td>de Sitter</td><td>No stable dark energy (&#x039B;)</td><td>Supported by DESI 2025/26 data</td></tr>
-<tr><td>Distance</td><td>Finite range for inflation</td><td>Consistent with CMB bounds</td></tr>
-<tr><td>TCC</td><td>Bounds on inflationary energy</td><td>Constrains early universe models</td></tr>
-</tbody>
-</table>
-
-<h3>Experimental Signatures and Observational Cosmology</h3>
-<p>The primary criticism of string theory its lack of experimental evidence has been challenged by the emergence of string cosmology and string phenomenology. While direct detection of a string is unlikely, the theory predicts macroscopic consequences that can be observed with current or near-future technology.</p>
-
-<p>In 2025 and 2026, Pulsar Timing Arrays (PTAs) like the NANOGrav collaboration reported significant evidence for a stochastic gravitational-wave background in the nanohertz frequency range. Analysis of this signal suggests it could be the result of a network of cosmic strings with a tension of G&#x03BC; &#x2248; 10<sup>-7</sup> to 10<sup>-8</sup>.</p>
-
-<table>
-<thead><tr><th>Experimental Method</th><th>Predicted Signature</th><th>Theoretical Connection</th></tr></thead>
-<tbody>
-<tr><td>Pulsar Timing Arrays</td><td>Nanohertz GW background</td><td>Cosmic String Network</td></tr>
-<tr><td>DESI / Euclid</td><td>Evolving Dark Energy (w(z))</td><td>Swampland de Sitter Conjecture</td></tr>
-<tr><td>BICEP / LiteBIRD</td><td>Low tensor-to-scalar ratio</td><td>Small-field String Inflation</td></tr>
-<tr><td>LHC / Future Colliders</td><td>Supersymmetric particles</td><td>Superstring Consistency</td></tr>
-</tbody>
-</table>`
-    }
-];
-
-const researchNav = document.getElementById('research-nav');
-const researchContainer = document.getElementById('research-container');
-const homePage = document.getElementById('home-page');
-const researchPage = document.getElementById('research-page');
-
-const homeBtn = document.createElement('button');
-homeBtn.textContent = 'Archive';
-homeBtn.className = 'active';
-homeBtn.onclick = () => showPage('home');
-researchNav.appendChild(homeBtn);
-
-researchDocs.forEach(doc => {
-    const btn = document.createElement('button');
-    btn.textContent = doc.title;
-    btn.onclick = () => showResearch(doc.id);
-    researchNav.appendChild(btn);
-});
-
-function showPage(page) {
-    if (page === 'home') {
-        homePage.classList.add('active');
-        researchPage.classList.remove('active');
-        homeBtn.classList.add('active');
-        Array.from(researchNav.children).forEach((btn, i) => {
-            if (i > 0) btn.classList.remove('active');
+    particles = [];
+    for(let i = 0; i < 100; i++) {
+        particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            size: Math.random() * 2,
+            speedX: (Math.random() - 0.5) * 0.5,
+            speedY: (Math.random() - 0.5) * 0.5,
+            opacity: Math.random() * 0.5
         });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
 
-function showResearch(id) {
-    const doc = researchDocs.find(d => d.id === id);
-    if (!doc) return;
-
-    homePage.classList.remove('active');
-    researchPage.classList.add('active');
-
-    Array.from(researchNav.children).forEach((btn, i) => {
-        btn.classList.toggle('active', i === researchDocs.findIndex(d => d.id === id) + 1);
+function animateBg() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#00f2ff';
+    particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if(p.x < 0) p.x = w;
+        if(p.x > w) p.x = 0;
+        if(p.y < 0) p.y = h;
+        if(p.y > h) p.y = 0;
+        ctx.globalAlpha = p.opacity;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
     });
-
-    researchContainer.innerHTML = `
-        <div class="research-page active">
-            <button class="back-btn" onclick="showPage('home')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Back to Archive
-            </button>
-            ${doc.content}
-        </div>
-    `;
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    requestAnimationFrame(animateBg);
 }
+
+window.addEventListener('resize', initBg);
+
+document.addEventListener('DOMContentLoaded', () => {
+    initBg();
+    animateBg();
+    initGallery();
+    initNav();
+    const title = document.getElementById('title');
+    const fonts = ['Inter', 'JetBrains Mono', 'Courier Prime', 'Space Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Roboto Mono', 'Syne Mono', 'Creepster', 'VT323', 'Silkscreen', 'Chakra Petch', 'Orbitron', 'Share Tech Mono', 'Major Mono Display', 'Recursive', 'Azeret Mono', 'Bungee Shade', 'Bungee Outline', 'Monoton', 'Rubik Glitch', 'Press Start 2P', 'Faster One', 'Bowlby One SC', 'Rubik Mono One', 'Nosifer', 'Ewert', 'Butcherman', 'New Rocker', 'Pirata One', 'Rye', 'Metal Mania', 'Shojumaru', 'Cinzel Decorative', 'Fruktur', 'Diplomata SC', 'Unlock', 'Wallpoet', 'Electromechanica', 'Geo', 'Dela Gothic One'];
+    setInterval(() => {
+        const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+        title.style.fontFamily = randomFont;
+    }, 500);
+});
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLb();
+});
 </script>
 
 </body>
