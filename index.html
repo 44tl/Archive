@@ -558,33 +558,38 @@
 </footer>
 
 <script>
-const CDN_BASE = '';
+const CDN_BASE = './media/';
+
+function mediaUrl(filename) {
+    return CDN_BASE + filename;
+}
+
 const media = [
-    { id: 'MED-001', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499939267995242496/r0frq25.png?ex=69f9ea8d&is=69f8990d&hm=c44475f111185e68c9a33adad02a9f6a4c28f77f5a6c31f96a47da43a326380c&" },
-    { id: 'MED-002', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499940146886213834/rt2f2wm.png?ex=69f9eb5e&is=69f899de&hm=d50dd68d02f3ea61691ad0a1b88c11db3126c8ebe1906530abe5360afc70ec3b&" },
-    { id: 'MED-003', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499941725903388862/bkbwk9x.png?ex=69f9ecd7&is=69f89b57&hm=9530dbc5693c7b2025ab02c56f64790417ac058d5282ffdbf9f221ddfe86553b&" },
-    { id: 'MED-004', type: 'video', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499943843859140779/rhhr0hk.mp4?ex=69f9eecf&is=69f89d4f&hm=00db0935df5601105d575cd7b9c19b91d12f3e102a3d61b165753f2786119f2e&" },
-    { id: 'MED-005', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944902530961579/pjmwvxx.png?ex=69f9efcc&is=69f89e4c&hm=bda5ba37a6871ca49242c2047bec2b8f1756d3760c4c91784834223e5686495a&" },
-    { id: 'MED-006', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903054983268/qnkm5wv.png?ex=69f9efcc&is=69f89e4c&hm=cbd25aad08750450b7f4b453e705836e90421d97a2d88c4e904aa68434e03402&" },
-    { id: 'MED-007', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944904082587788/n4dx2rk.png?ex=69f9efcc&is=69f89e4c&hm=6c5c75220149c38f743f318442d082e5bc6963f5c68f08a775a8114c4da2d4fc&" },
-    { id: 'MED-008', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944903558561832/dn5pnb7.png?ex=69f9efcc&is=69f89e4c&hm=2c0407b7a34771291235a49b95ed0a5e52c1dbe6d8592a959fb900cdc4569748&" },
-    { id: 'MED-009', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499944906486190170/td8p209.png?ex=69f9efcd&is=69f89e4d&hm=804ba2977eb5174070311833cd4b47987e34b2e1e0c95c0afd7d1e5fc93d9aa6&" },
-    { id: 'MED-010', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1499945642984865823/sbxhn25.png?ex=69f9f07c&is=69f89efc&hm=ff23a7f85193ca0cf39c439cc8e178afb9892aed9be063300db4083fcedc9bb9&" },
-    { id: 'MED-011', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287354835964044/5kvn2z4.png?ex=69f9347b&is=69f7e2fb&hm=89f7e02f56870e6655eef0710c477a5aa1c8e68f6528c91c1502ca00959ea0fd&" },
-    { id: 'MED-012', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355192344636/44tf22w.png?ex=69f9347b&is=69f7e2fb&hm=c2aec3c5a2ca28daa582a9ea679ea751f6751ac523b79fd1a1f8ada289ccdbbf&" },
-    { id: 'MED-013', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355536539698/5tnm3q7.png?ex=69f9347b&is=69f7e2fb&hm=8b1b9165b5ab5147d6be13386aa739277896cbd56c65b9fe9ae5dec16a4c1a07&" },
-    { id: 'MED-014', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287355913764904/j1b56w7.png?ex=69f9347b&is=69f7e2fb&hm=c689a7ab724c1a40b71e3e8d89be2eaad70a3197b66a88c6329c7a66da37fd5a&" },
-    { id: 'MED-015', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356249571438/pms3vzn.png?ex=69f9347b&is=69f7e2fb&hm=0467564d0db10433a64bcac4ae0d6311800d9c03a40258849e1b527e46f70ce4&" },
-    { id: 'MED-016', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500287356723400905/0r61shv.png?ex=69f9347b&is=69f7e2fb&hm=76590fb3c0263fad634e952c448a73d745410034036fca26cba88e1855662064&" },
-    { id: 'MED-017', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500461864184844368/827rs0f.png?ex=69f92e41&is=69f7dcc1&hm=43daf136674f96c3ed4a74067de793357faf752efb73c101861cc65ce84931b2&" },
-    { id: 'MED-018', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500461863916277800/xb2j4sq.png?ex=69f92e41&is=69f7dcc1&hm=2d210969c7ec34e2fa11b27b1d41d1637dde55e98d22303bbdd0d2317bc27bcc&" },
-    { id: 'MED-019', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117127925760/0fhmqbv.png?ex=69f95955&is=69f807d5&hm=d5061df75a31c8c88f823b96c60b7b85b488d87857725556b3a0bd9dafb8b804&" },
-    { id: 'MED-020', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500508117387968595/dh48dv0.png?ex=69f95955&is=69f807d5&hm=77a7d55c6b680db49184224aafc89ff8f8b2abcda9a2e415792949c98333fdd8&" },
-    { id: 'MED-021', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811179990454332/84p9x43.png?ex=69f9cad5&is=69f87955&hm=c0e542d8a73ba030e0645616d3ddf3d81f081903c82129218da8adc50285e515&" },
-    { id: 'MED-022', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811180287987712/3xn1fdf.png?ex=69f9cad5&is=69f87955&hm=1ae39fa84b28a6eb03d291366acde61149a13685b4d65038be16683835384199&" },
-    { id: 'MED-023', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811180556550164/jwndv12.png?ex=69f9cad5&is=69f87955&hm=e122e05373a12960d11cecbd3403b7d3050ae0b8490253df68a3c6a86dd7dfa5&" },
-    { id: 'MED-024', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811180841631794/v7mkhm7.png?ex=69f9cad5&is=69f87955&hm=be26d2329f086691430e96757403e78ce72d5a914c011b7df5482584641bebcc&" },
-    { id: 'MED-025', type: 'image', url: "https://cdn.discordapp.com/attachments/1499909249973620766/1500811181126848632/jn02m1n.png?ex=69f9cad5&is=69f87955&hm=e093bde5bbd50d5effbb91d1005985aa7e9fb1fe9eb0bbc05ba438c2d8f67ef6&" }
+    { id: 'MED-001', type: 'image', url: mediaUrl("r0frq25.png") },
+    { id: 'MED-002', type: 'image', url: mediaUrl("rt2f2wm.png") },
+    { id: 'MED-003', type: 'image', url: mediaUrl("bkbwk9x.png") },
+    { id: 'MED-004', type: 'video', url: mediaUrl("rhhr0hk.mp4") },
+    { id: 'MED-005', type: 'image', url: mediaUrl("pjmwvxx.png") },
+    { id: 'MED-006', type: 'image', url: mediaUrl("qnkm5wv.png") },
+    { id: 'MED-007', type: 'image', url: mediaUrl("n4dx2rk.png") },
+    { id: 'MED-008', type: 'image', url: mediaUrl("dn5pnb7.png") },
+    { id: 'MED-009', type: 'image', url: mediaUrl("td8p209.png") },
+    { id: 'MED-010', type: 'image', url: mediaUrl("sbxhn25.png") },
+    { id: 'MED-011', type: 'image', url: mediaUrl("5kvn2z4.png") },
+    { id: 'MED-012', type: 'image', url: mediaUrl("44tf22w.png") },
+    { id: 'MED-013', type: 'image', url: mediaUrl("5tnm3q7.png") },
+    { id: 'MED-014', type: 'image', url: mediaUrl("j1b56w7.png") },
+    { id: 'MED-015', type: 'image', url: mediaUrl("pms3vzn.png") },
+    { id: 'MED-016', type: 'image', url: mediaUrl("0r61shv.png") },
+    { id: 'MED-017', type: 'image', url: mediaUrl("827rs0f.png") },
+    { id: 'MED-018', type: 'image', url: mediaUrl("xb2j4sq.png") },
+    { id: 'MED-019', type: 'image', url: mediaUrl("0fhmqbv.png") },
+    { id: 'MED-020', type: 'image', url: mediaUrl("dh48dv0.png") },
+    { id: 'MED-021', type: 'image', url: mediaUrl("84p9x43.png") },
+    { id: 'MED-022', type: 'image', url: mediaUrl("3xn1fdf.png") },
+    { id: 'MED-023', type: 'image', url: mediaUrl("jwndv12.png") },
+    { id: 'MED-024', type: 'image', url: mediaUrl("v7mkhm7.png") },
+    { id: 'MED-025', type: 'image', url: mediaUrl("jn02m1n.png") },
 ];
 
 const researchDocs = [
